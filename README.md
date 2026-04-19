@@ -27,6 +27,7 @@ A modern, high-performance **multi-vendor E-Commerce platform** designed for a s
 - **📦 Intelligent Order Fulfillment**: Automatic order splitting among sellers with OTP-verified deliveries
 - **🔒 Enterprise Security**: JWT authentication, rate limiting, input validation, and error handling
 - **🎯 Domain Events System**: In-process event architecture ready for microservices scaling
+- **💻 Linting & Quality**: ESLint integrated into both frontend and backend with automated GitHub Actions workflows.
 - **📱 Responsive Design**: Mobile-first frontend with modern React + Vite
 - **💳 Payment Integration**: Support for multiple payment methods and gateway integration
 - **⭐ Review & Ratings**: Verified purchase reviews with image support
