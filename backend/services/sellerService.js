@@ -14,7 +14,6 @@ const getSellerOrder = async (sellerId, sellerOrderId, transaction) => {
       { model: Shipment, as: "shipment" },
     ],
     transaction,
-    lock: transaction ? transaction.LOCK.UPDATE : undefined,
   });
 
   if (!sellerOrder) throw new AppError("Seller order not found", 404, "SELLER_ORDER_NOT_FOUND");

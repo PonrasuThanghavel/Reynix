@@ -115,7 +115,6 @@ const updateShipmentStatus = async (shipperId, shipmentId, payload) => {
       where: { id: shipmentId, shipper_id: shipperId },
       include: [{ model: SellerOrder, as: "sellerOrder" }],
       transaction,
-      lock: transaction.LOCK.UPDATE,
     });
     if (!shipment) throw new AppError("Shipment not found", 404, "SHIPPER_SHIPMENT_NOT_FOUND");
     if (shipment.delivery_confirmed) {
@@ -144,7 +143,6 @@ const confirmShipmentDelivery = async (shipperId, shipmentId, otp) => {
       where: { id: shipmentId, shipper_id: shipperId },
       include: [{ model: SellerOrder, as: "sellerOrder", include: [{ model: Order, as: "order" }] }],
       transaction,
-      lock: transaction.LOCK.UPDATE,
     });
     if (!shipment) throw new AppError("Shipment not found", 404, "SHIPPER_SHIPMENT_NOT_FOUND");
     if (!shipment.delivery_otp) throw new AppError("Shipment OTP is unavailable", 400, "SHIPMENT_OTP_MISSING");

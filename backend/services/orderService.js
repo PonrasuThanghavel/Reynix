@@ -131,7 +131,6 @@ const createOrder = async (user, payload) => {
         },
       ],
       transaction,
-      lock: transaction.LOCK.UPDATE,
     });
 
     if (!cart || !cart.items.length) throw new AppError("Cart is empty", 400, "CART_EMPTY");
@@ -288,11 +287,14 @@ const cancelOrder = async (user, orderId, reason) => {
         { model: SellerOrder, as: "sellerOrders" },
       ],
       transaction,
-      lock: transaction.LOCK.UPDATE,
     });
 
     if (!order) throw new AppError("Order not found", 404, "ORDER_NOT_FOUND");
-    if (!["pending", "confirmed", "processing"].includes(order.status)) {
+    const hasLockedFulfillment = order.sellerOrders.some((sellerOrder) =>
+      ["shipped", "delivered"].includes(sellerOrder.status)
+    );
+
+    if (!["pending", "confirmed", "processing"].includes(order.status) || hasLockedFulfillment) {
       throw new AppError("Order cannot be cancelled at this stage", 400, "ORDER_CANNOT_BE_CANCELLED");
     }
 

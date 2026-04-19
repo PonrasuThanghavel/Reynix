@@ -26,13 +26,16 @@ exports.updatePaymentStatus = async (req, res, next) => {
   try {
     const payment = await Payment.findByPk(req.params.id);
     if (!payment) return apiResponse(res, 404, false, "Payment not found");
+    const order = await Order.findByPk(payment.order_id);
 
     const updateData = { status: req.body.status };
     if (req.body.status === "success") {
       updateData.paid_at = new Date();
       updateData.gateway_transaction_id = req.body.gateway_transaction_id;
       updateData.gateway_response = req.body.gateway_response;
-      await Order.update({ status: "confirmed" }, { where: { id: payment.order_id } });
+      if (order && order.status === "pending") {
+        await order.update({ status: "confirmed" });
+      }
     }
     if (req.body.status === "refunded") {
       updateData.refunded_at = new Date();
