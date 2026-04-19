@@ -7,6 +7,7 @@ Base URL: `http://localhost:5000/api`
 Reynix is a multi-role e-commerce backend built with Express 5, PostgreSQL, and Sequelize. It supports JWT authentication, rate limiting, and an MVC architecture.
 
 ### Platform Roles
+
 - `customer`: Can browse products, manage cart, and place orders.
 - `seller`: Can manage their own products and fulfill seller orders.
 - `shipper`: Can update shipment statuses and confirm delivery.
@@ -19,6 +20,7 @@ Reynix is a multi-role e-commerce backend built with Express 5, PostgreSQL, and 
 All API responses follow a consistent shape:
 
 **Success Response:**
+
 ```json
 {
   "success": true,
@@ -30,6 +32,7 @@ All API responses follow a consistent shape:
 ```
 
 **Error Response:**
+
 ```json
 {
   "success": false,
@@ -54,11 +57,13 @@ Authorization: Bearer <jwt_token>
 ## Key Endpoints with Examples
 
 ### 1. User Registration
+
 `POST /users/register`
 
 Register a new user on the platform.
 
 **Request Body:**
+
 ```json
 {
   "full_name": "John Doe",
@@ -69,6 +74,7 @@ Register a new user on the platform.
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -88,11 +94,13 @@ Register a new user on the platform.
 ---
 
 ### 2. User Login
+
 `POST /users/login`
 
 Authenticate an existing user.
 
 **Request Body:**
+
 ```json
 {
   "email": "johndoe@example.com",
@@ -101,6 +109,7 @@ Authenticate an existing user.
 ```
 
 **Success Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -119,12 +128,14 @@ Authenticate an existing user.
 ---
 
 ### 3. Create a Product
+
 `POST /products`
-*(Requires Auth: Seller or Admin)*
+_(Requires Auth: Seller or Admin)_
 
 Sellers can add products to the catalog. It automatically creates initial inventory.
 
 **Request Body:**
+
 ```json
 {
   "name": "Wireless Headphones",
@@ -132,8 +143,8 @@ Sellers can add products to the catalog. It automatically creates initial invent
   "short_description": "Noise-cancelling headphones",
   "category_id": 1,
   "brand_id": 2,
-  "base_price": 150.00,
-  "selling_price": 120.00,
+  "base_price": 150.0,
+  "selling_price": 120.0,
   "discount_percent": 20,
   "initial_stock": 50,
   "status": "active"
@@ -141,6 +152,7 @@ Sellers can add products to the catalog. It automatically creates initial invent
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -160,12 +172,14 @@ Sellers can add products to the catalog. It automatically creates initial invent
 ---
 
 ### 4. Fetch Products
+
 `GET /products?page=1&limit=10&sort=price_asc`
-*(Public)*
+_(Public)_
 
 List products with optional pagination and filtering.
 
 **Success Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -194,12 +208,14 @@ List products with optional pagination and filtering.
 ---
 
 ### 5. Add to Cart
+
 `POST /cart/items`
-*(Requires Auth: Customer)*
+_(Requires Auth: Customer)_
 
 Add a product to the user's active cart.
 
 **Request Body:**
+
 ```json
 {
   "product_id": "uuid-of-product",
@@ -208,6 +224,7 @@ Add a product to the user's active cart.
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -227,12 +244,14 @@ Add a product to the user's active cart.
 ---
 
 ### 6. Checkout / Place Order
+
 `POST /orders`
-*(Requires Auth: Customer)*
+_(Requires Auth: Customer)_
 
 Creates an order from the active cart, clears the cart, decrements inventory, and splits the order among sellers if necessary.
 
 **Request Body:**
+
 ```json
 {
   "shipping_address_id": 1,
@@ -242,6 +261,7 @@ Creates an order from the active cart, clears the cart, decrements inventory, an
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -271,12 +291,14 @@ Creates an order from the active cart, clears the cart, decrements inventory, an
 ---
 
 ### 7. Inventory Management
+
 `GET /inventory/product/:productId`
-*(Requires Auth: Seller or Admin)*
+_(Requires Auth: Seller or Admin)_
 
 Fetch the inventory levels for a specific product.
 
 **Success Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -295,20 +317,23 @@ Fetch the inventory levels for a specific product.
 ---
 
 ### 8. Coupons & Promotions
+
 `POST /coupons/validate`
-*(Requires Auth)*
+_(Requires Auth)_
 
 Validate a coupon code against a subtotal.
 
 **Request Body:**
+
 ```json
 {
   "code": "SAVE20",
-  "subtotal": 500.00
+  "subtotal": 500.0
 }
 ```
 
 **Success Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -320,7 +345,7 @@ Validate a coupon code against a subtotal.
       "discount_type": "percent",
       "discount_value": "20.00"
     },
-    "discount_amount": 100.00
+    "discount_amount": 100.0
   }
 }
 ```
@@ -328,12 +353,14 @@ Validate a coupon code against a subtotal.
 ---
 
 ### 9. Product Reviews
+
 `POST /reviews`
-*(Requires Auth: Customer)*
+_(Requires Auth: Customer)_
 
 Submit a review for a purchased product.
 
 **Request Body:**
+
 ```json
 {
   "product_id": "uuid-here",
@@ -345,6 +372,7 @@ Submit a review for a purchased product.
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "success": true,
@@ -362,12 +390,14 @@ Submit a review for a purchased product.
 ---
 
 ### 10. Notifications
+
 `GET /notifications`
-*(Requires Auth)*
+_(Requires Auth)_
 
 Fetch in-app notifications for the current user.
 
 **Success Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -401,6 +431,7 @@ Fetch in-app notifications for the current user.
 If a customer tries to place an order but the item is out of stock:
 
 **Response (400 Bad Request):**
+
 ```json
 {
   "success": false,
@@ -412,6 +443,7 @@ If a customer tries to place an order but the item is out of stock:
 If a user tries to access a protected route without a token:
 
 **Response (401 Unauthorized):**
+
 ```json
 {
   "success": false,

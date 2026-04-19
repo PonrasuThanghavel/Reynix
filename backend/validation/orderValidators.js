@@ -10,15 +10,14 @@ const createOrderValidator = [
 const orderListValidator = [
   query("page").optional().isInt({ min: 1 }),
   query("limit").optional().isInt({ min: 1, max: 100 }),
-  query("status").optional().isIn(["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"]),
+  query("status")
+    .optional()
+    .isIn(["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"]),
 ];
 
 const orderIdValidator = [param("id").isUUID()];
 
-const cancelOrderValidator = [
-  ...orderIdValidator,
-  body("reason").optional({ nullable: true }).isLength({ max: 1000 }),
-];
+const cancelOrderValidator = [...orderIdValidator, body("reason").optional({ nullable: true }).isLength({ max: 1000 })];
 
 const updateOrderStatusValidator = [
   ...orderIdValidator,

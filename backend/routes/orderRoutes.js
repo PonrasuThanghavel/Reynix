@@ -17,6 +17,12 @@ router.post("/", createOrderValidator, validateRequest(["body"]), orderControlle
 router.get("/", orderListValidator, validateRequest(["query"]), orderController.getOrders);
 router.get("/:id", orderIdValidator, validateRequest(["params"]), orderController.getOrderById);
 router.put("/:id/cancel", cancelOrderValidator, validateRequest(["params", "body"]), orderController.cancelOrder);
-router.put("/:id/status", authorize("admin"), updateOrderStatusValidator, validateRequest(["params", "body"]), orderController.updateOrderStatus);
+router.put(
+  "/:id/status",
+  authorize("admin"),
+  updateOrderStatusValidator,
+  validateRequest(["params", "body"]),
+  orderController.updateOrderStatus
+);
 
 module.exports = router;

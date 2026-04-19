@@ -8,18 +8,29 @@ exports.createPayment = async (req, res, next) => {
     if (!order) return apiResponse(res, 404, false, "Order not found");
 
     const payment = await Payment.create({
-      order_id, user_id: req.user.id, method, provider,
-      amount: amount || order.total_amount, currency: "INR",
+      order_id,
+      user_id: req.user.id,
+      method,
+      provider,
+      amount: amount || order.total_amount,
+      currency: "INR",
     });
     apiResponse(res, 201, true, "Payment initiated", { payment });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.getPaymentsByOrder = async (req, res, next) => {
   try {
-    const payments = await Payment.findAll({ where: { order_id: req.params.orderId }, order: [["created_at", "DESC"]] });
+    const payments = await Payment.findAll({
+      where: { order_id: req.params.orderId },
+      order: [["created_at", "DESC"]],
+    });
     apiResponse(res, 200, true, "Payments fetched", { payments });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.updatePaymentStatus = async (req, res, next) => {
@@ -44,7 +55,9 @@ exports.updatePaymentStatus = async (req, res, next) => {
 
     await payment.update(updateData);
     apiResponse(res, 200, true, "Payment updated", { payment });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = exports;

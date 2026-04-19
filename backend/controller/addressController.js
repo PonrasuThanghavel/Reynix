@@ -6,7 +6,10 @@ exports.getAddresses = async (req, res, next) => {
   try {
     const addresses = await UserAddress.findAll({
       where: { user_id: req.user.id },
-      order: [["is_default", "DESC"], ["created_at", "DESC"]],
+      order: [
+        ["is_default", "DESC"],
+        ["created_at", "DESC"],
+      ],
     });
     apiResponse(res, 200, true, "Addresses fetched", { addresses });
   } catch (error) {

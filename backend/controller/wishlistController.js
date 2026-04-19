@@ -12,7 +12,9 @@ exports.getWishlist = async (req, res, next) => {
       order: [["created_at", "DESC"]],
     });
     apiResponse(res, 200, true, "Wishlist fetched", { items });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.addToWishlist = async (req, res, next) => {
@@ -23,7 +25,9 @@ exports.addToWishlist = async (req, res, next) => {
       defaults: { user_id: req.user.id, product_id, variant_id },
     });
     apiResponse(res, created ? 201 : 200, true, created ? "Added to wishlist" : "Already in wishlist", { item });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.removeFromWishlist = async (req, res, next) => {
@@ -32,7 +36,9 @@ exports.removeFromWishlist = async (req, res, next) => {
     if (!item) return apiResponse(res, 404, false, "Wishlist item not found");
     await item.destroy();
     apiResponse(res, 200, true, "Removed from wishlist");
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = exports;

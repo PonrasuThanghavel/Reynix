@@ -17,7 +17,12 @@ const {
 const AppError = require("../utils/appError");
 const { generateOrderNumber } = require("../utils/helpers");
 const domainEvents = require("../events/domainEvents");
-const { toNumber, groupCartItemsBySeller, calculateCouponDiscount, deriveOrderStatus } = require("./orderService.helpers");
+const {
+  toNumber,
+  groupCartItemsBySeller,
+  calculateCouponDiscount,
+  deriveOrderStatus,
+} = require("./orderService.helpers");
 
 const baseOrderIncludes = [
   {

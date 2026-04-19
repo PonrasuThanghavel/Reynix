@@ -147,14 +147,15 @@ Responsibilities:
 - shipment creation per seller order
 - order cancellation and stock restore
 - aggregate order status syncing
+
 ### `orderService.helpers.js`
-+
-+Responsibilities:
-+
-+- logic for grouping cart items by seller
-+- complex coupon discount calculation logic
-+- aggregate order status derivation from sub-orders
-+
+
+- +Responsibilities:
+- +- logic for grouping cart items by seller
+  +- complex coupon discount calculation logic
+  +- aggregate order status derivation from sub-orders
+-
+
 ### `sellerService.js`
 
 Responsibilities:

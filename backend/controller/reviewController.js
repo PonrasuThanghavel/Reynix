@@ -9,14 +9,18 @@ exports.getProductReviews = async (req, res, next) => {
 
     const { count, rows } = await Review.findAndCountAll({
       where: { product_id: req.params.productId, is_approved: true },
-      order: [["created_at", "DESC"]], limit, offset: (page - 1) * limit,
+      order: [["created_at", "DESC"]],
+      limit,
+      offset: (page - 1) * limit,
     });
 
     apiResponse(res, 200, true, "Reviews fetched", {
       reviews: rows,
       pagination: { total: count, page, limit, totalPages: Math.ceil(count / limit) },
     });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.createReview = async (req, res, next) => {
@@ -30,8 +34,14 @@ exports.createReview = async (req, res, next) => {
     }
 
     const review = await Review.create({
-      product_id, user_id: req.user.id, order_item_id,
-      rating, title, body, image_urls, is_verified_purchase,
+      product_id,
+      user_id: req.user.id,
+      order_item_id,
+      rating,
+      title,
+      body,
+      image_urls,
+      is_verified_purchase,
     });
 
     // Update product's cached rating
@@ -50,7 +60,9 @@ exports.createReview = async (req, res, next) => {
     );
 
     apiResponse(res, 201, true, "Review submitted", { review });
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.deleteReview = async (req, res, next) => {
@@ -75,7 +87,9 @@ exports.deleteReview = async (req, res, next) => {
     );
 
     apiResponse(res, 200, true, "Review deleted");
-  } catch (error) { next(error); }
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = exports;

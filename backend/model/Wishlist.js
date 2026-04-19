@@ -13,9 +13,7 @@ const Wishlist = sequelize.define(
     timestamps: true,
     createdAt: "created_at",
     updatedAt: false,
-    indexes: [
-      { unique: true, fields: ["user_id", "product_id", "variant_id"], name: "wishlist_unique_entry" },
-    ],
+    indexes: [{ unique: true, fields: ["user_id", "product_id", "variant_id"], name: "wishlist_unique_entry" }],
   }
 );
 
