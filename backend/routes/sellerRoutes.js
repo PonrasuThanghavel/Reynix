@@ -3,7 +3,11 @@ const router = express.Router();
 const sellerController = require("../controller/sellerController");
 const { authenticate, authorize } = require("../utils/authMiddleware");
 const validateRequest = require("../middleware/validateRequest");
-const { orderListValidator, sellerOrderIdValidator, sellerAssignShipperValidator } = require("../validation/orderValidators");
+const {
+  orderListValidator,
+  sellerOrderIdValidator,
+  sellerAssignShipperValidator,
+} = require("../validation/orderValidators");
 
 router.use(authenticate, authorize("seller"));
 

@@ -20,10 +20,7 @@ const shipperUpdateShipmentStatusValidator = [
   body("notes").optional({ nullable: true }).isLength({ max: 1000 }),
 ];
 
-const shipperConfirmShipmentValidator = [
-  ...shipmentIdValidator,
-  body("otp").isLength({ min: 6, max: 6 }).isNumeric(),
-];
+const shipperConfirmShipmentValidator = [...shipmentIdValidator, body("otp").isLength({ min: 6, max: 6 }).isNumeric()];
 
 module.exports = {
   shipmentIdValidator,

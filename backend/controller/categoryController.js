@@ -7,7 +7,10 @@ exports.getCategories = async (req, res, next) => {
     const categories = await Category.findAll({
       where: { parent_id: null, is_active: true },
       include: [{ model: Category, as: "children", where: { is_active: true }, required: false }],
-      order: [["sort_order", "ASC"], ["name", "ASC"]],
+      order: [
+        ["sort_order", "ASC"],
+        ["name", "ASC"],
+      ],
     });
     apiResponse(res, 200, true, "Categories fetched", { categories });
   } catch (error) {
@@ -19,7 +22,10 @@ exports.getCategories = async (req, res, next) => {
 exports.getCategoryById = async (req, res, next) => {
   try {
     const category = await Category.findByPk(req.params.id, {
-      include: [{ model: Category, as: "children" }, { model: Category, as: "parent" }],
+      include: [
+        { model: Category, as: "children" },
+        { model: Category, as: "parent" },
+      ],
     });
     if (!category) return apiResponse(res, 404, false, "Category not found");
     apiResponse(res, 200, true, "Category fetched", { category });

@@ -195,27 +195,27 @@ frontend/
 
 ### Core Tables (18 total)
 
-| Table | Purpose | Key Columns |
-|-------|---------|-------------|
-| **users** | User accounts | id, email, password_hash, role, status |
-| **products** | Product catalog | id, name, seller_id, category_id, status |
-| **product_variants** | Size/color options | id, product_id, variant_name, selling_price |
-| **product_images** | Product photos | id, product_id, image_url |
-| **brands** | Brand master data | id, name, slug |
-| **categories** | Product categories | id, name, slug |
-| **inventory** | Stock levels | id, product_id, variant_id, quantity |
-| **carts** | Shopping carts | id, user_id, status, coupon_id |
-| **cart_items** | Cart contents | id, cart_id, product_id, quantity, unit_price |
-| **orders** | Customer orders | id, order_number, user_id, status, total_amount |
-| **order_items** | Order line items | id, order_id, product_id, quantity, unit_price |
-| **seller_orders** | Seller-specific orders | id, order_id, seller_id, status |
-| **payments** | Payment records | id, order_id, amount, status, method |
-| **shipments** | Shipment tracking | id, order_id, shipper_id, tracking_number, status |
-| **reviews** | Product reviews | id, product_id, user_id, rating, title, body |
-| **user_addresses** | Shipping addresses | id, user_id, address_type, street, city |
-| **coupons** | Discount codes | id, code, discount_value, valid_from, valid_until |
-| **notifications** | User alerts | id, user_id, type, title, message |
-| **wishlist** | Saved products | id, user_id, product_id, variant_id |
+| Table                | Purpose                | Key Columns                                       |
+| -------------------- | ---------------------- | ------------------------------------------------- |
+| **users**            | User accounts          | id, email, password_hash, role, status            |
+| **products**         | Product catalog        | id, name, seller_id, category_id, status          |
+| **product_variants** | Size/color options     | id, product_id, variant_name, selling_price       |
+| **product_images**   | Product photos         | id, product_id, image_url                         |
+| **brands**           | Brand master data      | id, name, slug                                    |
+| **categories**       | Product categories     | id, name, slug                                    |
+| **inventory**        | Stock levels           | id, product_id, variant_id, quantity              |
+| **carts**            | Shopping carts         | id, user_id, status, coupon_id                    |
+| **cart_items**       | Cart contents          | id, cart_id, product_id, quantity, unit_price     |
+| **orders**           | Customer orders        | id, order_number, user_id, status, total_amount   |
+| **order_items**      | Order line items       | id, order_id, product_id, quantity, unit_price    |
+| **seller_orders**    | Seller-specific orders | id, order_id, seller_id, status                   |
+| **payments**         | Payment records        | id, order_id, amount, status, method              |
+| **shipments**        | Shipment tracking      | id, order_id, shipper_id, tracking_number, status |
+| **reviews**          | Product reviews        | id, product_id, user_id, rating, title, body      |
+| **user_addresses**   | Shipping addresses     | id, user_id, address_type, street, city           |
+| **coupons**          | Discount codes         | id, code, discount_value, valid_from, valid_until |
+| **notifications**    | User alerts            | id, user_id, type, title, message                 |
+| **wishlist**         | Saved products         | id, user_id, product_id, variant_id               |
 
 ### Key Relationships
 
@@ -230,18 +230,19 @@ frontend/
 
 ### User Roles
 
-| Role | Permissions | Features |
-|------|-------------|----------|
-| **Customer/Buyer** | Browse, purchase, review | Cart, Orders, Reviews, Wishlists |
-| **Seller** | List products, fulfill orders | Product CRUD, Seller Orders, Inventory |
-| **Shipper** | Track deliveries | Shipment updates, OTP verification |
-| **Admin** | Full system control | All operations, user management |
+| Role               | Permissions                   | Features                               |
+| ------------------ | ----------------------------- | -------------------------------------- |
+| **Customer/Buyer** | Browse, purchase, review      | Cart, Orders, Reviews, Wishlists       |
+| **Seller**         | List products, fulfill orders | Product CRUD, Seller Orders, Inventory |
+| **Shipper**        | Track deliveries              | Shipment updates, OTP verification     |
+| **Admin**          | Full system control           | All operations, user management        |
 
 ---
 
 ## 🔑 Key Features Implemented
 
 ### User Management
+
 - ✅ User registration & authentication (JWT)
 - ✅ Email-based login
 - ✅ Role-based access control
@@ -249,6 +250,7 @@ frontend/
 - ✅ Multiple delivery addresses
 
 ### Product Management
+
 - ✅ Product CRUD operations
 - ✅ Product variants (size, color, etc.)
 - ✅ Multiple images per product
@@ -256,6 +258,7 @@ frontend/
 - ✅ Product search & filtering
 
 ### Shopping Cart & Orders
+
 - ✅ Add/remove/update cart items
 - ✅ Apply coupon codes
 - ✅ Order placement
@@ -263,18 +266,21 @@ frontend/
 - ✅ Order cancellation
 
 ### Multi-Vendor Fulfillment
+
 - ✅ Automatic order splitting by seller
 - ✅ Seller-specific order views
 - ✅ Individual seller order tracking
 - ✅ Seller order status updates
 
 ### Payment Processing
+
 - ✅ Payment recording
 - ✅ Multiple payment methods support
 - ✅ Payment gateway integration ready
 - ✅ Refund tracking
 
 ### Shipment Management
+
 - ✅ Shipment creation & tracking
 - ✅ OTP-verified delivery
 - ✅ Shipper assignment
@@ -282,6 +288,7 @@ frontend/
 - ✅ Tracking number support
 
 ### Reviews & Ratings
+
 - ✅ Product reviews with ratings
 - ✅ Verified purchase checks
 - ✅ Review moderation
@@ -289,6 +296,7 @@ frontend/
 - ✅ Helpful count tracking
 
 ### Additional Features
+
 - ✅ Wishlist management
 - ✅ Coupon/discount system
 - ✅ Inventory management
@@ -341,11 +349,13 @@ POST   /api/coupons/apply              # Apply coupon
 ## 🧪 Testing
 
 ### Test Coverage
+
 - ✅ Order service helper functions tested
 - ✅ End-to-end API tests available
 - ✅ Sample data generation script
 
 ### Running Tests
+
 ```bash
 # Run unit tests
 npm test
@@ -362,25 +372,27 @@ node recreate_tables.js
 ## 📦 Dependencies
 
 ### Key Backend Packages
+
 ```json
 {
-  "express": "4.x",              // Web framework
-  "sequelize": "^6.0",           // ORM
-  "pg": "^8.x",                  // PostgreSQL driver
-  "jsonwebtoken": "^9.0",        // JWT auth
-  "bcryptjs": "^2.4",            // Password hashing
-  "express-rate-limit": "^6.0",  // Rate limiting
-  "cors": "^2.8",                // CORS handling
-  "dotenv": "^16.0"              // Environment variables
+  "express": "4.x", // Web framework
+  "sequelize": "^6.0", // ORM
+  "pg": "^8.x", // PostgreSQL driver
+  "jsonwebtoken": "^9.0", // JWT auth
+  "bcryptjs": "^2.4", // Password hashing
+  "express-rate-limit": "^6.0", // Rate limiting
+  "cors": "^2.8", // CORS handling
+  "dotenv": "^16.0" // Environment variables
 }
 ```
 
 ### Key Frontend Packages
+
 ```json
 {
-  "react": "^18.x",              // UI library
-  "react-dom": "^18.x",          // React DOM
-  "vite": "^5.0"                 // Build tool
+  "react": "^18.x", // UI library
+  "react-dom": "^18.x", // React DOM
+  "vite": "^5.0" // Build tool
 }
 ```
 
@@ -389,6 +401,7 @@ node recreate_tables.js
 ## 🚀 Development Workflow
 
 ### Environment Setup
+
 ```bash
 # 1. Configure .env
 cp backend/.env.example backend/.env
@@ -410,6 +423,7 @@ cd ../frontend && npm run dev
 ```
 
 ### API Testing
+
 ```bash
 # Generate test data & run e2e tests
 node backend/test_api.js
@@ -420,6 +434,7 @@ node backend/test_api.js
 ## 📝 Code Quality
 
 ### Current Implementation Status
+
 - ✅ Full CRUD operations
 - ✅ Error handling
 - ✅ Input validation
@@ -429,6 +444,7 @@ node backend/test_api.js
 - ✅ Test coverage
 
 ### Next Steps (Future Enhancements)
+
 - Frontend component library
 - Advanced search/filtering
 - Analytics dashboard
@@ -442,6 +458,7 @@ node backend/test_api.js
 ## 📚 Documentation
 
 For detailed information, see:
+
 - [API.md](./API.md) - Complete API endpoint reference
 - [CONTROLLERS.md](./CONTROLLERS.md) - Controller architecture details
 - [MODELS.md](./MODELS.md) - Data model documentation
@@ -463,6 +480,7 @@ For detailed information, see:
 ## 📞 Support
 
 For issues or questions, refer to:
+
 - Project README: [../README.md](../README.md)
 - Discord Community: https://discord.gg/p8nCs2sT
 - Issue Tracker: GitHub Issues

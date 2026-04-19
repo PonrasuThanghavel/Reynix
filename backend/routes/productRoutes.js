@@ -12,8 +12,29 @@ const {
 
 router.get("/", productListValidator, validateRequest(["query"]), productController.getProducts);
 router.get("/:id", productController.getProductById);
-router.post("/", authenticate, authorize("admin", "seller"), createProductValidator, validateRequest(["body"]), productController.createProduct);
-router.put("/:id", authenticate, authorize("admin", "seller"), updateProductValidator, validateRequest(["params", "body"]), productController.updateProduct);
-router.delete("/:id", authenticate, authorize("admin", "seller"), productIdValidator, validateRequest(["params"]), productController.deleteProduct);
+router.post(
+  "/",
+  authenticate,
+  authorize("admin", "seller"),
+  createProductValidator,
+  validateRequest(["body"]),
+  productController.createProduct
+);
+router.put(
+  "/:id",
+  authenticate,
+  authorize("admin", "seller"),
+  updateProductValidator,
+  validateRequest(["params", "body"]),
+  productController.updateProduct
+);
+router.delete(
+  "/:id",
+  authenticate,
+  authorize("admin", "seller"),
+  productIdValidator,
+  validateRequest(["params"]),
+  productController.deleteProduct
+);
 
 module.exports = router;

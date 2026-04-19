@@ -9,11 +9,13 @@ Reynix provides built-in scripts to facilitate rapid development, testing, and d
 This script is used to synchronize the database schema with the Sequelize models.
 
 **Usage:**
+
 ```bash
 node recreate_tables.js
 ```
 
 **What it does:**
+
 - Authenticates with the PostgreSQL database using credentials from `.env`.
 - Executes `sequelize.sync({ alter: true })`.
 - Safely updates the table structure to match the latest model definitions without dropping the entire database (unless destructive changes are required by Sequelize).
@@ -27,6 +29,7 @@ node recreate_tables.js
 A comprehensive end-to-end integration test script that verifies the core e-commerce flow and populates the database with initial test data.
 
 **Usage:**
+
 ```bash
 node test_api.js
 ```
@@ -59,6 +62,7 @@ node test_api.js
    - Verifies public endpoints for categories, brands, and products are responsive.
 
 ### Benefits:
+
 - **Instant Feedback**: Quickly verify if a code change broke the main checkout flow.
 - **Data Seeding**: Useful for fresh installations to populate the dashboard with realistic data.
 - **Example Usage**: Acts as a living code example for how to interact with the API.

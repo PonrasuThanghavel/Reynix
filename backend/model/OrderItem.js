@@ -67,11 +67,7 @@ const OrderItem = sequelize.define(
     timestamps: true,
     createdAt: "created_at",
     updatedAt: false,
-    indexes: [
-      { fields: ["order_id"] },
-      { fields: ["seller_order_id"] },
-      { fields: ["seller_id"] },
-    ],
+    indexes: [{ fields: ["order_id"] }, { fields: ["seller_order_id"] }, { fields: ["seller_id"] }],
   }
 );
 

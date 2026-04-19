@@ -149,11 +149,11 @@ This is intentionally simple and ready to be replaced or bridged by:
 - Kafka
 - RabbitMQ
 - background workers
+
 ## `services/orderService.helpers.js`
-+
-+Internal business logic helpers:
-+
-+- `groupCartItemsBySeller(items)`: Groups an array of cart items into a Map keyed by `seller_id`.
-+- `calculateCouponDiscount(subtotal, coupon)`: Handles flat and percentage discount logic with optional caps.
-+- `deriveOrderStatus(sellerOrders)`: Determines the aggregate parent order status (e.g., if one item is shipped, the order is 'shipped').
-+
+
+- +Internal business logic helpers:
+- +- `groupCartItemsBySeller(items)`: Groups an array of cart items into a Map keyed by `seller_id`.
+  +- `calculateCouponDiscount(subtotal, coupon)`: Handles flat and percentage discount logic with optional caps.
+  +- `deriveOrderStatus(sellerOrders)`: Determines the aggregate parent order status (e.g., if one item is shipped, the order is 'shipped').
+-

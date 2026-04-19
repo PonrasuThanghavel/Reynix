@@ -37,9 +37,7 @@ const CartItem = sequelize.define(
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
-    indexes: [
-      { fields: ["cart_id"] },
-    ],
+    indexes: [{ fields: ["cart_id"] }],
   }
 );
 

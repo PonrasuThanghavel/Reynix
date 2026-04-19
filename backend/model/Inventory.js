@@ -39,9 +39,7 @@ const Inventory = sequelize.define(
     timestamps: true,
     createdAt: false,
     updatedAt: "updated_at",
-    indexes: [
-      { fields: ["product_id"] },
-    ],
+    indexes: [{ fields: ["product_id"] }],
   }
 );
 

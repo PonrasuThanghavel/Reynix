@@ -62,11 +62,7 @@ const User = sequelize.define(
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
-    indexes: [
-      { fields: ["email"] },
-      { fields: ["phone_number"] },
-      { fields: ["role"] },
-    ],
+    indexes: [{ fields: ["email"] }, { fields: ["phone_number"] }, { fields: ["role"] }],
   }
 );
 

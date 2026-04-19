@@ -23,7 +23,9 @@ const errorHandler = (err, req, res, next) => {
 
   // Sequelize FK constraint errors
   if (err.name === "SequelizeForeignKeyConstraintError") {
-    return res.status(400).json({ success: false, code: "FOREIGN_KEY_CONSTRAINT", message: "Referenced record not found" });
+    return res
+      .status(400)
+      .json({ success: false, code: "FOREIGN_KEY_CONSTRAINT", message: "Referenced record not found" });
   }
 
   // JWT errors
