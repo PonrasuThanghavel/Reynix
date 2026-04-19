@@ -6,6 +6,7 @@ const { connectDB, sequelize } = require("./config/database");
 const errorHandler = require("./utils/errorHandler");
 const logger = require("./utils/logger");
 const { createRateLimiter } = require("./middleware/rateLimit");
+// const { recordApiMetric } = require("./utils/healthCheck");
 
 // Import all models (registers associations)
 require("./model");
@@ -27,6 +28,7 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 const couponRoutes = require("./routes/couponRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes");
+// const healthRoutes = require("./routes/healthRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -37,10 +39,18 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(createRateLimiter({ windowMs: 60 * 1000, max: 300, code: "API_RATE_LIMITED" }));
 
+// // ── API Metrics Tracking ──
+// app.use((req, res, next) => {
+//   const startTime = Date.now();
+//   res.on('finish', () => {
+//     const responseTime = Date.now() - startTime;
+//     recordApiMetric(res.statusCode, responseTime);
+//   });
+//   next();
+// });
+
 // ── Health check ──
-app.get("/api/health", (req, res) => {
-  res.json({ success: true, message: "Reynix E-Commerce API is running 🚀", timestamp: new Date().toISOString() });
-});
+// app.use("/api/health", healthRoutes);
 
 // ── API Routes ──
 app.use("/api/users", userRoutes);
