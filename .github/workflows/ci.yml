@@ -1,13 +1,13 @@
-name: Lint Check
+name: CI
 
 on:
   push:
-    branches: [ main, RY1SP01 ]
+    branches: ["**"]
   pull_request:
-    branches: [ main ]
+    branches: ["**"]
 
 jobs:
-  lint-backend:
+  backend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,11 +20,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
         working-directory: backend
-      - name: Run lint
+      - name: Check for vulnerabilities
+        run: npm audit --audit-level=high
+        working-directory: backend
+      - name: Check formatting
+        run: npm run format:check
+        working-directory: backend
+      - name: Run lint (includes comment check)
         run: npm run lint
         working-directory: backend
 
-  lint-frontend:
+  frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +43,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
         working-directory: frontend
-      - name: Run lint
+      - name: Check for vulnerabilities
+        run: npm audit --audit-level=high
+        working-directory: frontend
+      - name: Check formatting
+        run: npm run format:check
+        working-directory: frontend
+      - name: Run lint (includes comment check)
         run: npm run lint
         working-directory: frontend
