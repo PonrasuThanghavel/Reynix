@@ -31,6 +31,9 @@ const emptyProduct = {
   initial_stock: "10",
 };
 
+/**
+ *
+ */
 function SellerDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -61,10 +64,14 @@ function SellerDashboard() {
         brandAPI.getBrands(),
       ]);
 
-      if (prodRes.status === "fulfilled") setProducts(prodRes.value.data.data.products || []);
-      if (orderRes.status === "fulfilled") setOrders(orderRes.value.data.data.sellerOrders || []);
-      if (catRes.status === "fulfilled") setCategories(catRes.value.data.data.categories || []);
-      if (brandRes.status === "fulfilled") setBrands(brandRes.value.data.data.brands || []);
+      if (prodRes.status === "fulfilled")
+        setProducts(prodRes.value.data.data.products || []);
+      if (orderRes.status === "fulfilled")
+        setOrders(orderRes.value.data.data.sellerOrders || []);
+      if (catRes.status === "fulfilled")
+        setCategories(catRes.value.data.data.categories || []);
+      if (brandRes.status === "fulfilled")
+        setBrands(brandRes.value.data.data.brands || []);
     } catch {
       toast.error("Failed to load dashboard data");
     } finally {
@@ -116,8 +123,12 @@ function SellerDashboard() {
         brand_id: formData.brand_id ? Number(formData.brand_id) : null,
         base_price: Number(formData.base_price),
         selling_price: Number(formData.selling_price),
-        discount_percent: formData.discount_percent ? Number(formData.discount_percent) : 0,
-        initial_stock: formData.initial_stock ? Number(formData.initial_stock) : undefined,
+        discount_percent: formData.discount_percent
+          ? Number(formData.discount_percent)
+          : 0,
+        initial_stock: formData.initial_stock
+          ? Number(formData.initial_stock)
+          : undefined,
       };
 
       if (editingProduct) {
@@ -170,15 +181,20 @@ function SellerDashboard() {
     }).format(price);
 
   const formatDate = (d) =>
-    new Date(d).toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric" });
+    new Date(d).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
 
   // ── Stats ──
   const totalProducts = products.length;
   const activeProducts = products.filter((p) => p.status === "active").length;
   const pendingOrders = orders.filter((o) => o.status === "pending").length;
   const totalRevenue = orders.reduce(
-    (sum, o) => sum + (o.items?.reduce((s, i) => s + Number(i.total_price || 0), 0) || 0),
-    0
+    (sum, o) =>
+      sum + (o.items?.reduce((s, i) => s + Number(i.total_price || 0), 0) || 0),
+    0,
   );
 
   if (loading) {
@@ -246,13 +262,17 @@ function SellerDashboard() {
           className={`seller-tab ${activeTab === "products" ? "active" : ""}`}
           onClick={() => setActiveTab("products")}
         >
-          <HiOutlineCube style={{ marginRight: 6, verticalAlign: "middle" }} /> Products
+          <HiOutlineCube style={{ marginRight: 6, verticalAlign: "middle" }} />{" "}
+          Products
         </button>
         <button
           className={`seller-tab ${activeTab === "orders" ? "active" : ""}`}
           onClick={() => setActiveTab("orders")}
         >
-          <HiOutlineClipboardDocumentList style={{ marginRight: 6, verticalAlign: "middle" }} /> Orders
+          <HiOutlineClipboardDocumentList
+            style={{ marginRight: 6, verticalAlign: "middle" }}
+          />{" "}
+          Orders
         </button>
       </div>
 
@@ -271,7 +291,10 @@ function SellerDashboard() {
           {products.length === 0 ? (
             <div className="seller-empty">
               <HiOutlineCube />
-              <p>No products yet. Click "Add Product" to create your first listing.</p>
+              <p>
+                No products yet. Click "Add Product" to create your first
+                listing.
+              </p>
             </div>
           ) : (
             <div className="seller-table-wrap">
@@ -294,14 +317,24 @@ function SellerDashboard() {
                       <td>{p.category?.name || "—"}</td>
                       <td>{formatPrice(p.selling_price)}</td>
                       <td>
-                        <span className={`table-status ${p.status}`}>{p.status}</span>
+                        <span className={`table-status ${p.status}`}>
+                          {p.status}
+                        </span>
                       </td>
                       <td>
                         <div className="table-actions">
-                          <button className="table-action-btn" title="Edit" onClick={() => openEditModal(p)}>
+                          <button
+                            className="table-action-btn"
+                            title="Edit"
+                            onClick={() => openEditModal(p)}
+                          >
                             <HiOutlinePencilSquare />
                           </button>
-                          <button className="table-action-btn danger" title="Delete" onClick={() => handleDelete(p)}>
+                          <button
+                            className="table-action-btn danger"
+                            title="Delete"
+                            onClick={() => handleDelete(p)}
+                          >
                             <HiOutlineTrash />
                           </button>
                         </div>
@@ -335,12 +368,19 @@ function SellerDashboard() {
                 <div className="seller-order-card" key={so.id}>
                   <div className="seller-order-top">
                     <div>
-                      <span className="seller-order-id">Order #{so.order?.order_number || so.id}</span>
-                      <span className="seller-order-date" style={{ marginLeft: 12 }}>
+                      <span className="seller-order-id">
+                        Order #{so.order?.order_number || so.id}
+                      </span>
+                      <span
+                        className="seller-order-date"
+                        style={{ marginLeft: 12 }}
+                      >
                         {formatDate(so.created_at)}
                       </span>
                     </div>
-                    <span className={`status-badge ${so.status}`}>{so.status}</span>
+                    <span className={`status-badge ${so.status}`}>
+                      {so.status}
+                    </span>
                   </div>
 
                   <div className="seller-order-items">
@@ -361,27 +401,44 @@ function SellerDashboard() {
                     <div className="seller-order-address">
                       {so.order?.shippingAddress && (
                         <>
-                          Ship to: {so.order.shippingAddress.full_name}, {so.order.shippingAddress.city},{" "}
-                          {so.order.shippingAddress.state} {so.order.shippingAddress.postal_code}
+                          Ship to: {so.order.shippingAddress.full_name},{" "}
+                          {so.order.shippingAddress.city},{" "}
+                          {so.order.shippingAddress.state}{" "}
+                          {so.order.shippingAddress.postal_code}
                         </>
                       )}
                     </div>
 
                     <div className="seller-order-actions">
                       {so.status === "pending" && (
-                        <button className="btn-pack" onClick={() => handlePack(so.id)} disabled={actionId === so.id}>
-                          <HiOutlineArchiveBox style={{ marginRight: 4, verticalAlign: "middle" }} />
+                        <button
+                          className="btn-pack"
+                          onClick={() => handlePack(so.id)}
+                          disabled={actionId === so.id}
+                        >
+                          <HiOutlineArchiveBox
+                            style={{ marginRight: 4, verticalAlign: "middle" }}
+                          />
                           {actionId === so.id ? "Packing..." : "Mark as Packed"}
                         </button>
                       )}
                       {so.status === "packed" && (
-                        <span className="btn-ship" style={{ opacity: 0.7, cursor: "default" }}>
-                          <HiOutlineTruck style={{ marginRight: 4, verticalAlign: "middle" }} />
+                        <span
+                          className="btn-ship"
+                          style={{ opacity: 0.7, cursor: "default" }}
+                        >
+                          <HiOutlineTruck
+                            style={{ marginRight: 4, verticalAlign: "middle" }}
+                          />
                           Awaiting Shipper
                         </span>
                       )}
-                      {["assigned", "shipped", "delivered"].includes(so.status) && (
-                        <span className={`status-badge ${so.status}`}>{so.status}</span>
+                      {["assigned", "shipped", "delivered"].includes(
+                        so.status,
+                      ) && (
+                        <span className={`status-badge ${so.status}`}>
+                          {so.status}
+                        </span>
                       )}
                     </div>
                   </div>
@@ -404,7 +461,9 @@ function SellerDashboard() {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                 />
               </label>
 
@@ -413,7 +472,12 @@ function SellerDashboard() {
                 <input
                   type="text"
                   value={formData.short_description}
-                  onChange={(e) => setFormData({ ...formData, short_description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      short_description: e.target.value,
+                    })
+                  }
                 />
               </label>
 
@@ -421,7 +485,9 @@ function SellerDashboard() {
                 Description
                 <textarea
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
               </label>
 
@@ -431,7 +497,9 @@ function SellerDashboard() {
                   <select
                     required
                     value={formData.category_id}
-                    onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, category_id: e.target.value })
+                    }
                   >
                     <option value="">Select category</option>
                     {categories.map((c) => (
@@ -446,7 +514,9 @@ function SellerDashboard() {
                   Brand
                   <select
                     value={formData.brand_id}
-                    onChange={(e) => setFormData({ ...formData, brand_id: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, brand_id: e.target.value })
+                    }
                   >
                     <option value="">No brand</option>
                     {brands.map((b) => (
@@ -467,7 +537,9 @@ function SellerDashboard() {
                     min="0"
                     required
                     value={formData.base_price}
-                    onChange={(e) => setFormData({ ...formData, base_price: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, base_price: e.target.value })
+                    }
                   />
                 </label>
                 <label>
@@ -478,7 +550,12 @@ function SellerDashboard() {
                     min="0"
                     required
                     value={formData.selling_price}
-                    onChange={(e) => setFormData({ ...formData, selling_price: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        selling_price: e.target.value,
+                      })
+                    }
                   />
                 </label>
               </div>
@@ -492,7 +569,12 @@ function SellerDashboard() {
                     min="0"
                     max="100"
                     value={formData.discount_percent}
-                    onChange={(e) => setFormData({ ...formData, discount_percent: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        discount_percent: e.target.value,
+                      })
+                    }
                   />
                 </label>
                 <label>
@@ -500,7 +582,9 @@ function SellerDashboard() {
                   <input
                     type="text"
                     value={formData.sku}
-                    onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, sku: e.target.value })
+                    }
                   />
                 </label>
               </div>
@@ -510,7 +594,9 @@ function SellerDashboard() {
                   Status
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, status: e.target.value })
+                    }
                   >
                     <option value="active">Active</option>
                     <option value="draft">Draft</option>
@@ -524,18 +610,35 @@ function SellerDashboard() {
                       type="number"
                       min="0"
                       value={formData.initial_stock}
-                      onChange={(e) => setFormData({ ...formData, initial_stock: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          initial_stock: e.target.value,
+                        })
+                      }
                     />
                   </label>
                 )}
               </div>
 
               <div className="modal-actions">
-                <button type="button" className="modal-btn-cancel" onClick={() => setShowModal(false)}>
+                <button
+                  type="button"
+                  className="modal-btn-cancel"
+                  onClick={() => setShowModal(false)}
+                >
                   Cancel
                 </button>
-                <button type="submit" className="modal-btn-save" disabled={saving}>
-                  {saving ? "Saving..." : editingProduct ? "Update Product" : "Create Product"}
+                <button
+                  type="submit"
+                  className="modal-btn-save"
+                  disabled={saving}
+                >
+                  {saving
+                    ? "Saving..."
+                    : editingProduct
+                      ? "Update Product"
+                      : "Create Product"}
                 </button>
               </div>
             </form>

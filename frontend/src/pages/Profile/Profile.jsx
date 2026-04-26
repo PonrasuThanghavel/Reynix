@@ -4,9 +4,16 @@ import { useAuth } from "../../context/AuthContext";
 import { profileAPI } from "../../api/wishlist";
 import { addressAPI } from "../../api/orders";
 import toast from "react-hot-toast";
-import { HiOutlineMapPin, HiOutlineTrash, HiOutlineCheckCircle } from "react-icons/hi2";
+import {
+  HiOutlineMapPin,
+  HiOutlineTrash,
+  HiOutlineCheckCircle,
+} from "react-icons/hi2";
 import "./Profile.css";
 
+/**
+ *
+ */
 function Profile() {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
@@ -119,7 +126,9 @@ function Profile() {
               <input
                 type="text"
                 value={formData.full_name}
-                onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, full_name: e.target.value })
+                }
                 required
               />
             </div>
@@ -135,12 +144,19 @@ function Profile() {
               <input
                 type="tel"
                 value={formData.phone_number}
-                onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone_number: e.target.value })
+                }
               />
             </div>
             <div className="profile-field">
               <label>Gender</label>
-              <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })}>
+              <select
+                value={formData.gender}
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
+              >
                 <option value="">Prefer not to say</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -155,7 +171,9 @@ function Profile() {
               <input
                 type="date"
                 value={formData.date_of_birth}
-                onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, date_of_birth: e.target.value })
+                }
               />
             </div>
           </div>
@@ -168,16 +186,24 @@ function Profile() {
 
         <div
           className="profile-meta"
-          style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--border-subtle)" }}
+          style={{
+            marginTop: "1.5rem",
+            paddingTop: "1.5rem",
+            borderTop: "1px solid var(--border-subtle)",
+          }}
         >
           <div className="profile-meta-item">
             <span className="profile-meta-label">Member Since</span>
-            <span className="profile-meta-value">{formatDate(user.created_at)}</span>
+            <span className="profile-meta-value">
+              {formatDate(user.created_at)}
+            </span>
           </div>
           {user.last_login_at && (
             <div className="profile-meta-item">
               <span className="profile-meta-label">Last Login</span>
-              <span className="profile-meta-value">{formatDate(user.last_login_at)}</span>
+              <span className="profile-meta-value">
+                {formatDate(user.last_login_at)}
+              </span>
             </div>
           )}
         </div>
@@ -190,12 +216,16 @@ function Profile() {
         </h2>
 
         {addresses.length === 0 ? (
-          <p className="profile-no-addresses">No saved addresses yet. You can add one during checkout.</p>
+          <p className="profile-no-addresses">
+            No saved addresses yet. You can add one during checkout.
+          </p>
         ) : (
           <div className="profile-addresses">
             {addresses.map((addr) => (
               <div className="profile-address-card" key={addr.id}>
-                {addr.is_default && <div className="profile-address-label">Default</div>}
+                {addr.is_default && (
+                  <div className="profile-address-label">Default</div>
+                )}
                 <div className="profile-address-name">{addr.full_name}</div>
                 <div className="profile-address-text">
                   {addr.address_line1}

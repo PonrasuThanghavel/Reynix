@@ -17,8 +17,19 @@ import {
 } from "react-icons/hi2";
 import "./AdminDashboard.css";
 
-const ORDER_STATUSES = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"];
+const ORDER_STATUSES = [
+  "pending",
+  "confirmed",
+  "processing",
+  "shipped",
+  "delivered",
+  "cancelled",
+  "returned",
+];
 
+/**
+ *
+ */
 function AdminDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -41,19 +52,25 @@ function AdminDashboard() {
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [userRes, orderRes, prodRes, catRes, brandRes] = await Promise.allSettled([
-        adminAPI.getUsers({ limit: 200 }),
-        adminAPI.getOrders({ limit: 100 }),
-        adminAPI.getProducts({ limit: 200 }),
-        adminAPI.getCategories(),
-        adminAPI.getBrands(),
-      ]);
+      const [userRes, orderRes, prodRes, catRes, brandRes] =
+        await Promise.allSettled([
+          adminAPI.getUsers({ limit: 200 }),
+          adminAPI.getOrders({ limit: 100 }),
+          adminAPI.getProducts({ limit: 200 }),
+          adminAPI.getCategories(),
+          adminAPI.getBrands(),
+        ]);
 
-      if (userRes.status === "fulfilled") setUsers(userRes.value.data.data.users || []);
-      if (orderRes.status === "fulfilled") setOrders(orderRes.value.data.data.orders || []);
-      if (prodRes.status === "fulfilled") setProducts(prodRes.value.data.data.products || []);
-      if (catRes.status === "fulfilled") setCategories(catRes.value.data.data.categories || []);
-      if (brandRes.status === "fulfilled") setBrands(brandRes.value.data.data.brands || []);
+      if (userRes.status === "fulfilled")
+        setUsers(userRes.value.data.data.users || []);
+      if (orderRes.status === "fulfilled")
+        setOrders(orderRes.value.data.data.orders || []);
+      if (prodRes.status === "fulfilled")
+        setProducts(prodRes.value.data.data.products || []);
+      if (catRes.status === "fulfilled")
+        setCategories(catRes.value.data.data.categories || []);
+      if (brandRes.status === "fulfilled")
+        setBrands(brandRes.value.data.data.brands || []);
     } catch {
       toast.error("Failed to load admin data");
     } finally {
@@ -80,14 +97,21 @@ function AdminDashboard() {
     }).format(price);
 
   const formatDate = (d) =>
-    new Date(d).toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric" });
+    new Date(d).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
 
   // ── Stats ──
   const totalUsers = users.length;
   const totalSellers = users.filter((u) => u.role === "seller").length;
   const totalOrders = orders.length;
   const totalProducts = products.length;
-  const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
+  const totalRevenue = orders.reduce(
+    (sum, o) => sum + Number(o.total_amount || 0),
+    0,
+  );
   const pendingOrders = orders.filter((o) => o.status === "pending").length;
 
   // ── Order Actions ──
@@ -95,7 +119,9 @@ function AdminDashboard() {
     try {
       await adminAPI.updateOrderStatus(orderId, newStatus);
       toast.success(`Order status updated to "${newStatus}"`);
-      setOrders((prev) => prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o)));
+      setOrders((prev) =>
+        prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o)),
+      );
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to update status");
     }
@@ -166,7 +192,9 @@ function AdminDashboard() {
   };
 
   // Filtered orders
-  const filteredOrders = orderFilter ? orders.filter((o) => o.status === orderFilter) : orders;
+  const filteredOrders = orderFilter
+    ? orders.filter((o) => o.status === orderFilter)
+    : orders;
 
   if (loading) {
     return (
@@ -249,10 +277,18 @@ function AdminDashboard() {
       <div className="admin-tabs">
         {[
           { key: "overview", label: "Users", icon: <HiOutlineUsers /> },
-          { key: "orders", label: "Orders", icon: <HiOutlineClipboardDocumentList /> },
+          {
+            key: "orders",
+            label: "Orders",
+            icon: <HiOutlineClipboardDocumentList />,
+          },
           { key: "products", label: "Products", icon: <HiOutlineCube /> },
           { key: "categories", label: "Categories", icon: <HiOutlineTag /> },
-          { key: "brands", label: "Brands", icon: <HiOutlineBuildingStorefront /> },
+          {
+            key: "brands",
+            label: "Brands",
+            icon: <HiOutlineBuildingStorefront />,
+          },
         ].map((tab) => (
           <button
             key={tab.key}
@@ -285,15 +321,26 @@ function AdminDashboard() {
                 {users.map((u) => (
                   <tr key={u.id}>
                     <td>{u.full_name}</td>
-                    <td style={{ color: "var(--text-secondary)" }}>{u.email}</td>
+                    <td style={{ color: "var(--text-secondary)" }}>
+                      {u.email}
+                    </td>
                     <td>
                       <span className={`role-badge ${u.role}`}>{u.role}</span>
                     </td>
                     <td>
-                      <span className={`user-active-dot ${u.is_active ? "active" : "inactive"}`} />{" "}
+                      <span
+                        className={`user-active-dot ${u.is_active ? "active" : "inactive"}`}
+                      />{" "}
                       {u.is_active ? "Active" : "Inactive"}
                     </td>
-                    <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{formatDate(u.created_at)}</td>
+                    <td
+                      style={{
+                        color: "var(--text-muted)",
+                        fontSize: "0.82rem",
+                      }}
+                    >
+                      {formatDate(u.created_at)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -307,7 +354,8 @@ function AdminDashboard() {
         <>
           <div className="admin-toolbar">
             <h2>
-              {filteredOrders.length} Order{filteredOrders.length !== 1 ? "s" : ""}
+              {filteredOrders.length} Order
+              {filteredOrders.length !== 1 ? "s" : ""}
             </h2>
             <div className="admin-toolbar-actions">
               <select
@@ -347,17 +395,30 @@ function AdminDashboard() {
                   {filteredOrders.map((o) => (
                     <tr key={o.id}>
                       <td style={{ fontWeight: 600 }}>{o.order_number}</td>
-                      <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{formatDate(o.created_at)}</td>
+                      <td
+                        style={{
+                          color: "var(--text-muted)",
+                          fontSize: "0.82rem",
+                        }}
+                      >
+                        {formatDate(o.created_at)}
+                      </td>
                       <td>{o.items?.length || 0}</td>
-                      <td style={{ fontWeight: 600 }}>{formatPrice(o.total_amount)}</td>
+                      <td style={{ fontWeight: 600 }}>
+                        {formatPrice(o.total_amount)}
+                      </td>
                       <td>
-                        <span className={`status-badge ${o.status}`}>{o.status}</span>
+                        <span className={`status-badge ${o.status}`}>
+                          {o.status}
+                        </span>
                       </td>
                       <td>
                         <select
                           className="status-select"
                           value={o.status}
-                          onChange={(e) => handleStatusChange(o.id, e.target.value)}
+                          onChange={(e) =>
+                            handleStatusChange(o.id, e.target.value)
+                          }
                         >
                           {ORDER_STATUSES.map((s) => (
                             <option key={s} value={s}>
@@ -416,13 +477,20 @@ function AdminDashboard() {
                       >
                         {p.name}
                       </td>
-                      <td style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>
+                      <td
+                        style={{
+                          color: "var(--text-secondary)",
+                          fontSize: "0.82rem",
+                        }}
+                      >
                         {p.seller?.full_name || "—"}
                       </td>
                       <td>{p.category?.name || "—"}</td>
                       <td>{formatPrice(p.selling_price)}</td>
                       <td>
-                        <span className={`table-status ${p.status}`}>{p.status}</span>
+                        <span className={`table-status ${p.status}`}>
+                          {p.status}
+                        </span>
                       </td>
                       <td>
                         <button
@@ -460,7 +528,10 @@ function AdminDashboard() {
               required
             />
             <button type="submit">
-              <HiOutlinePlus style={{ verticalAlign: "middle", marginRight: 4 }} /> Add
+              <HiOutlinePlus
+                style={{ verticalAlign: "middle", marginRight: 4 }}
+              />{" "}
+              Add
             </button>
           </form>
 
@@ -485,7 +556,14 @@ function AdminDashboard() {
                     <tr key={c.id}>
                       <td style={{ color: "var(--text-muted)" }}>{c.id}</td>
                       <td style={{ fontWeight: 500 }}>{c.name}</td>
-                      <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{c.slug || "—"}</td>
+                      <td
+                        style={{
+                          color: "var(--text-muted)",
+                          fontSize: "0.82rem",
+                        }}
+                      >
+                        {c.slug || "—"}
+                      </td>
                       <td>
                         <button
                           className="table-action-btn danger"
@@ -522,7 +600,10 @@ function AdminDashboard() {
               required
             />
             <button type="submit">
-              <HiOutlinePlus style={{ verticalAlign: "middle", marginRight: 4 }} /> Add
+              <HiOutlinePlus
+                style={{ verticalAlign: "middle", marginRight: 4 }}
+              />{" "}
+              Add
             </button>
           </form>
 
@@ -547,7 +628,14 @@ function AdminDashboard() {
                     <tr key={b.id}>
                       <td style={{ color: "var(--text-muted)" }}>{b.id}</td>
                       <td style={{ fontWeight: 500 }}>{b.name}</td>
-                      <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{b.slug || "—"}</td>
+                      <td
+                        style={{
+                          color: "var(--text-muted)",
+                          fontSize: "0.82rem",
+                        }}
+                      >
+                        {b.slug || "—"}
+                      </td>
                       <td>
                         <button
                           className="table-action-btn danger"

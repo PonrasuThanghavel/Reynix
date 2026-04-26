@@ -15,6 +15,9 @@ import {
 import { RiShoppingBag3Line } from "react-icons/ri";
 import "./Layout.css";
 
+/**
+ *
+ */
 function Layout() {
   const { user, logout } = useAuth();
   const { itemCount } = useCart();
@@ -73,12 +76,24 @@ function Layout() {
               </Link>
               <Link to="/cart" className="navbar-icon-btn" title="Cart">
                 <HiOutlineShoppingBag />
-                {itemCount > 0 && <span className="badge">{itemCount > 9 ? "9+" : itemCount}</span>}
+                {itemCount > 0 && (
+                  <span className="badge">
+                    {itemCount > 9 ? "9+" : itemCount}
+                  </span>
+                )}
               </Link>
 
-              <div className="navbar-user" ref={dropdownRef} onClick={() => setDropdownOpen(!dropdownOpen)}>
-                <div className="navbar-avatar">{getInitials(user.full_name)}</div>
-                <span className="navbar-user-name">{user.full_name?.split(" ")[0]}</span>
+              <div
+                className="navbar-user"
+                ref={dropdownRef}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <div className="navbar-avatar">
+                  {getInitials(user.full_name)}
+                </div>
+                <span className="navbar-user-name">
+                  {user.full_name?.split(" ")[0]}
+                </span>
 
                 {dropdownOpen && (
                   <div className="navbar-dropdown" id="user-dropdown">
@@ -90,13 +105,19 @@ function Layout() {
                     </Link>
 
                     {user.role === "seller" && (
-                      <Link to="/seller/dashboard" onClick={() => setDropdownOpen(false)}>
+                      <Link
+                        to="/seller/dashboard"
+                        onClick={() => setDropdownOpen(false)}
+                      >
                         <HiOutlineBuildingStorefront /> Seller Dashboard
                       </Link>
                     )}
 
                     {user.role === "admin" && (
-                      <Link to="/admin/dashboard" onClick={() => setDropdownOpen(false)}>
+                      <Link
+                        to="/admin/dashboard"
+                        onClick={() => setDropdownOpen(false)}
+                      >
                         <HiOutlineSquares2X2 /> Admin Panel
                       </Link>
                     )}
@@ -107,7 +128,11 @@ function Layout() {
 
                     <div className="divider" />
 
-                    <button className="logout-btn" onClick={handleLogout} id="logout-button">
+                    <button
+                      className="logout-btn"
+                      onClick={handleLogout}
+                      id="logout-button"
+                    >
                       <HiOutlineArrowRightOnRectangle /> Logout
                     </button>
                   </div>

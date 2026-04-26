@@ -6,7 +6,8 @@ export const adminAPI = {
 
   // Orders (admin sees all)
   getOrders: (params) => API.get("/orders", { params }),
-  updateOrderStatus: (id, status) => API.put(`/orders/${id}/status`, { status }),
+  updateOrderStatus: (id, status) =>
+    API.put(`/orders/${id}/status`, { status }),
 
   // Products (admin sees all)
   getProducts: (params) => API.get("/products", { params }),

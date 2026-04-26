@@ -14,9 +14,20 @@ import {
 import { HiOutlinePhotograph } from "react-icons/hi";
 import "./Cart.css";
 
+/**
+ *
+ */
 function Cart() {
   const { user } = useAuth();
-  const { items, itemCount, subtotal, loading, updateItem, removeItem, clearCart } = useCart();
+  const {
+    items,
+    itemCount,
+    subtotal,
+    loading,
+    updateItem,
+    removeItem,
+    clearCart,
+  } = useCart();
   const [updatingId, setUpdatingId] = useState(null);
 
   const formatPrice = (price) =>
@@ -127,46 +138,72 @@ function Cart() {
               <div
                 className="cart-item"
                 key={item.id}
-                style={isUpdating ? { opacity: 0.6, pointerEvents: "none" } : {}}
+                style={
+                  isUpdating ? { opacity: 0.6, pointerEvents: "none" } : {}
+                }
               >
                 <div className="cart-item-image">
                   {item.product?.images?.[0]?.image_url ? (
-                    <img src={item.product.images[0].image_url} alt={productName} />
+                    <img
+                      src={item.product.images[0].image_url}
+                      alt={productName}
+                    />
                   ) : (
                     <HiOutlinePhotograph />
                   )}
                 </div>
 
                 <div className="cart-item-info">
-                  <Link to={`/products/${item.product_id}`} className="cart-item-name">
+                  <Link
+                    to={`/products/${item.product_id}`}
+                    className="cart-item-name"
+                  >
                     {productName}
                   </Link>
 
-                  {item.variant && <span className="cart-item-variant">{item.variant.variant_name}</span>}
+                  {item.variant && (
+                    <span className="cart-item-variant">
+                      {item.variant.variant_name}
+                    </span>
+                  )}
 
-                  <span className="cart-item-price">{formatPrice(unitPrice)} each</span>
+                  <span className="cart-item-price">
+                    {formatPrice(unitPrice)} each
+                  </span>
 
                   <div className="cart-item-actions">
                     <div className="cart-item-quantity">
                       <button
                         className="cart-qty-btn"
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity - 1)
+                        }
                         disabled={item.quantity <= 1}
                       >
                         <HiOutlineMinus />
                       </button>
                       <div className="cart-qty-value">{item.quantity}</div>
-                      <button className="cart-qty-btn" onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
+                      <button
+                        className="cart-qty-btn"
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity + 1)
+                        }
+                      >
                         <HiOutlinePlus />
                       </button>
                     </div>
 
-                    <button className="cart-item-remove" onClick={() => handleRemove(item.id, productName)}>
+                    <button
+                      className="cart-item-remove"
+                      onClick={() => handleRemove(item.id, productName)}
+                    >
                       <HiOutlineTrash /> Remove
                     </button>
 
                     <div className="cart-item-total">
-                      <span className="cart-item-total-price">{formatPrice(lineTotal)}</span>
+                      <span className="cart-item-total-price">
+                        {formatPrice(lineTotal)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -190,14 +227,20 @@ function Cart() {
 
           <div className="cart-summary-row">
             <span className="label">Shipping</span>
-            <span className="value" style={shipping === 0 ? { color: "var(--accent-success)" } : {}}>
+            <span
+              className="value"
+              style={shipping === 0 ? { color: "var(--accent-success)" } : {}}
+            >
               {shipping === 0 ? "FREE" : formatPrice(shipping)}
             </span>
           </div>
 
           {shipping > 0 && (
             <div className="cart-summary-row">
-              <span className="label" style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
+              <span
+                className="label"
+                style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}
+              >
                 Free shipping on orders ≥ ₹999
               </span>
             </div>
@@ -210,7 +253,12 @@ function Cart() {
             <span className="value">{formatPrice(total)}</span>
           </div>
 
-          <Link to="/checkout" className="cart-checkout-btn" id="checkout-btn" style={{ textDecoration: "none" }}>
+          <Link
+            to="/checkout"
+            className="cart-checkout-btn"
+            id="checkout-btn"
+            style={{ textDecoration: "none" }}
+          >
             Proceed to Checkout <HiOutlineArrowRight />
           </Link>
 

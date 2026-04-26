@@ -5,6 +5,9 @@ import toast from "react-hot-toast";
 import { HiOutlineTag, HiArrowRight } from "react-icons/hi2";
 import "./Categories.css";
 
+/**
+ *
+ */
 function Categories() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,20 +40,40 @@ function Categories() {
   return (
     <div className="categories-page">
       <h1>Shop by Category</h1>
-      <p className="categories-subtitle">Discover our wide collection by browsing your favorite categories.</p>
+      <p className="categories-subtitle">
+        Discover our wide collection by browsing your favorite categories.
+      </p>
 
       {categories.length === 0 ? (
-        <div style={{ textAlign: "center", color: "var(--text-muted)", marginTop: "4rem" }}>
-          <HiOutlineTag size={48} style={{ marginBottom: "1rem", opacity: 0.5 }} />
+        <div
+          style={{
+            textAlign: "center",
+            color: "var(--text-muted)",
+            marginTop: "4rem",
+          }}
+        >
+          <HiOutlineTag
+            size={48}
+            style={{ marginBottom: "1rem", opacity: 0.5 }}
+          />
           <h3>No categories found</h3>
         </div>
       ) : (
         <div className="categories-grid">
           {categories.map((cat) => (
-            <Link to={`/products?category_id=${cat.id}`} key={cat.id} className="category-card">
+            <Link
+              to={`/products?category_id=${cat.id}`}
+              key={cat.id}
+              className="category-card"
+            >
               <div className="category-img-wrap">
                 {cat.image_url ? (
-                  <img src={cat.image_url} alt={cat.name} className="category-img" loading="lazy" />
+                  <img
+                    src={cat.image_url}
+                    alt={cat.name}
+                    className="category-img"
+                    loading="lazy"
+                  />
                 ) : (
                   <HiOutlineTag className="category-placeholder" />
                 )}
@@ -60,7 +83,9 @@ function Categories() {
                   {cat.name}
                   <HiArrowRight />
                 </div>
-                {cat.description && <p className="category-description">{cat.description}</p>}
+                {cat.description && (
+                  <p className="category-description">{cat.description}</p>
+                )}
               </div>
             </Link>
           ))}

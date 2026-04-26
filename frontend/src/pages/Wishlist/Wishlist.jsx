@@ -4,10 +4,17 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { wishlistAPI } from "../../api/wishlist";
 import toast from "react-hot-toast";
-import { HiOutlineHeart, HiOutlineShoppingCart, HiOutlineTrash } from "react-icons/hi2";
+import {
+  HiOutlineHeart,
+  HiOutlineShoppingCart,
+  HiOutlineTrash,
+} from "react-icons/hi2";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import "./Wishlist.css";
 
+/**
+ *
+ */
 function Wishlist() {
   const { user } = useAuth();
   const { addItem } = useCart();
@@ -100,32 +107,53 @@ function Wishlist() {
 
           return (
             <div className="wishlist-item" key={item.id}>
-              <Link to={`/products/${item.product_id}`} className="wishlist-item-image">
+              <Link
+                to={`/products/${item.product_id}`}
+                className="wishlist-item-image"
+              >
                 {item.product?.images?.[0]?.image_url ? (
-                  <img src={item.product.images[0].image_url} alt={item.product?.name} />
+                  <img
+                    src={item.product.images[0].image_url}
+                    alt={item.product?.name}
+                  />
                 ) : (
                   <HiOutlinePhotograph />
                 )}
               </Link>
 
               <div className="wishlist-item-info">
-                <Link to={`/products/${item.product_id}`} className="wishlist-item-name">
+                <Link
+                  to={`/products/${item.product_id}`}
+                  className="wishlist-item-name"
+                >
                   {item.product?.name || "Product"}
                 </Link>
-                {item.variant && <div className="wishlist-item-variant">{item.variant.variant_name}</div>}
+                {item.variant && (
+                  <div className="wishlist-item-variant">
+                    {item.variant.variant_name}
+                  </div>
+                )}
                 <div className="wishlist-item-price">
                   {formatPrice(sellingPrice)}
                   {basePrice > sellingPrice && (
-                    <span className="wishlist-item-base-price">{formatPrice(basePrice)}</span>
+                    <span className="wishlist-item-base-price">
+                      {formatPrice(basePrice)}
+                    </span>
                   )}
                 </div>
               </div>
 
               <div className="wishlist-item-actions">
-                <button className="wishlist-add-cart-btn" onClick={() => handleAddToCart(item)}>
+                <button
+                  className="wishlist-add-cart-btn"
+                  onClick={() => handleAddToCart(item)}
+                >
                   <HiOutlineShoppingCart /> Add to Cart
                 </button>
-                <button className="wishlist-remove-btn" onClick={() => handleRemove(item.id)}>
+                <button
+                  className="wishlist-remove-btn"
+                  onClick={() => handleRemove(item.id)}
+                >
                   <HiOutlineTrash /> Remove
                 </button>
               </div>

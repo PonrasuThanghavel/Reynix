@@ -19,6 +19,9 @@ import Profile from "./pages/Profile/Profile";
 import Categories from "./pages/Categories/Categories";
 import ApiCatalog from "./pages/ApiCatalog/ApiCatalog";
 
+/**
+ *
+ */
 function App() {
   return (
     <BrowserRouter>

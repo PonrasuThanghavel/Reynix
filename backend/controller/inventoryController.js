@@ -25,7 +25,7 @@ exports.updateInventory = async (req, res, next) => {
 
 exports.getLowStock = async (req, res, next) => {
   try {
-    const { Op, literal } = require("sequelize");
+    const { literal } = require("sequelize");
     const items = await Inventory.findAll({
       where: literal("quantity <= low_stock_threshold"),
     });

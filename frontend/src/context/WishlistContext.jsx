@@ -5,6 +5,11 @@ import toast from "react-hot-toast";
 
 const WishlistContext = createContext();
 
+/**
+ *
+ * @param root0
+ * @param root0.children
+ */
 export function WishlistProvider({ children }) {
   const { user } = useAuth();
   const [wishlistIds, setWishlistIds] = useState(new Set());
@@ -71,14 +76,26 @@ export function WishlistProvider({ children }) {
   const isInWishlist = (productId) => wishlistIds.has(productId);
 
   return (
-    <WishlistContext.Provider value={{ items, wishlistIds, toggleWishlist, isInWishlist, fetchWishlist }}>
+    <WishlistContext.Provider
+      value={{
+        items,
+        wishlistIds,
+        toggleWishlist,
+        isInWishlist,
+        fetchWishlist,
+      }}
+    >
       {children}
     </WishlistContext.Provider>
   );
 }
 
+/**
+ *
+ */
 export function useWishlist() {
   const context = useContext(WishlistContext);
-  if (!context) throw new Error("useWishlist must be used within WishlistProvider");
+  if (!context)
+    throw new Error("useWishlist must be used within WishlistProvider");
   return context;
 }

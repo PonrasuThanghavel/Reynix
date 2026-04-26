@@ -12,6 +12,9 @@ import {
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import "./Products.css";
 
+/**
+ *
+ */
 function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -46,14 +49,15 @@ function Products() {
         return newParams;
       });
     },
-    [setSearchParams]
+    [setSearchParams],
   );
 
   const clearFilters = () => {
     setSearchParams({});
   };
 
-  const hasActiveFilters = filters.search || filters.category_id || filters.brand_id || filters.sort;
+  const hasActiveFilters =
+    filters.search || filters.category_id || filters.brand_id || filters.sort;
 
   // Fetch categories and brands once
   useEffect(() => {
@@ -93,11 +97,20 @@ function Products() {
       setProducts(res.data.data.products || []);
       setPagination(res.data.data.pagination || null);
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to load products. Is the backend running?");
+      setError(
+        err.response?.data?.message ||
+          "Failed to load products. Is the backend running?",
+      );
     } finally {
       setLoading(false);
     }
-  }, [filters.search, filters.category_id, filters.brand_id, filters.sort, filters.page]);
+  }, [
+    filters.search,
+    filters.category_id,
+    filters.brand_id,
+    filters.sort,
+    filters.page,
+  ]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -140,13 +153,20 @@ function Products() {
 
     return (
       <div className="products-pagination">
-        <button className="pagination-btn" disabled={page <= 1} onClick={() => updateFilter("page", String(page - 1))}>
+        <button
+          className="pagination-btn"
+          disabled={page <= 1}
+          onClick={() => updateFilter("page", String(page - 1))}
+        >
           <HiOutlineChevronLeft />
         </button>
 
         {start > 1 && (
           <>
-            <button className="pagination-btn" onClick={() => updateFilter("page", "1")}>
+            <button
+              className="pagination-btn"
+              onClick={() => updateFilter("page", "1")}
+            >
               1
             </button>
             {start > 2 && <span className="pagination-info">…</span>}
@@ -166,7 +186,10 @@ function Products() {
         {end < totalPages && (
           <>
             {end < totalPages - 1 && <span className="pagination-info">…</span>}
-            <button className="pagination-btn" onClick={() => updateFilter("page", String(totalPages))}>
+            <button
+              className="pagination-btn"
+              onClick={() => updateFilter("page", String(totalPages))}
+            >
               {totalPages}
             </button>
           </>
@@ -192,7 +215,9 @@ function Products() {
       <div className="products-header">
         <h1>
           Products
-          {pagination && <span className="products-count">({pagination.total})</span>}
+          {pagination && (
+            <span className="products-count">({pagination.total})</span>
+          )}
         </h1>
       </div>
 

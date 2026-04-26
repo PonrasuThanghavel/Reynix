@@ -3,6 +3,12 @@ const logger = require("./logger");
 
 /**
  * Global error handling middleware.
+ *
+ * @param {Error & { code?: string, statusCode?: number, details?: unknown }} err Error to handle.
+ * @param {import("express").Request} req Express request.
+ * @param {import("express").Response} res Express response.
+ * @param {import("express").NextFunction} next Express next callback.
+ * @returns {import("express").Response | void} Serialized error response or next handler call.
  */
 const errorHandler = (err, req, res, next) => {
   if (res.headersSent) return next(err);

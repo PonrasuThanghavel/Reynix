@@ -216,7 +216,11 @@
 .orders-empty a {
   padding: 0.7rem 1.3rem;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   color: white;
   font-size: 0.88rem;
   font-weight: 600;
