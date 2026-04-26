@@ -21,11 +21,7 @@
 .api-catalog-empty {
   border: 1px solid var(--panel-border);
   border-radius: 18px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0.015)
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
   box-shadow: var(--shadow-soft);
 }
 
@@ -202,11 +198,7 @@
 
 .api-catalog-button-primary {
   border-color: rgba(99, 102, 241, 0.7);
-  background: linear-gradient(
-    135deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   color: #fff;
   font-weight: 700;
 }

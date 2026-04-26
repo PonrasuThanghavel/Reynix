@@ -2,12 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
-import {
-  HiOutlineEnvelope,
-  HiOutlineLockClosed,
-  HiOutlineEye,
-  HiOutlineEyeSlash,
-} from "react-icons/hi2";
+import { HiOutlineEnvelope, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 import "./Auth.css";
 
 /**
@@ -26,11 +21,9 @@ function Login() {
   const validate = () => {
     const newErrors = {};
     if (!form.email.trim()) newErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(form.email))
-      newErrors.email = "Enter a valid email";
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "Enter a valid email";
     if (!form.password) newErrors.password = "Password is required";
-    else if (form.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters";
+    else if (form.password.length < 8) newErrors.password = "Password must be at least 8 characters";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -54,8 +47,7 @@ function Login() {
       toast.success(`Welcome back, ${user.full_name}!`);
       navigate("/");
     } catch (err) {
-      const message =
-        err.response?.data?.message || "Login failed. Please try again.";
+      const message = err.response?.data?.message || "Login failed. Please try again.";
       setApiError(message);
     } finally {
       setLoading(false);
@@ -90,9 +82,7 @@ function Login() {
                 autoComplete="email"
               />
             </div>
-            {errors.email && (
-              <span className="field-error">{errors.email}</span>
-            )}
+            {errors.email && <span className="field-error">{errors.email}</span>}
           </div>
 
           <div className="form-group">
@@ -118,17 +108,10 @@ function Login() {
                 {showPassword ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
               </button>
             </div>
-            {errors.password && (
-              <span className="field-error">{errors.password}</span>
-            )}
+            {errors.password && <span className="field-error">{errors.password}</span>}
           </div>
 
-          <button
-            type="submit"
-            className="auth-submit-btn"
-            disabled={loading}
-            id="login-submit-btn"
-          >
+          <button type="submit" className="auth-submit-btn" disabled={loading} id="login-submit-btn">
             {loading && <span className="spinner" />}
             {loading ? "Signing in..." : "Sign in"}
           </button>

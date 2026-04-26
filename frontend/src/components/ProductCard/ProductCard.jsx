@@ -1,11 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  HiOutlineHeart,
-  HiHeart,
-  HiOutlineShoppingCart,
-  HiStar,
-  HiOutlineStar,
-} from "react-icons/hi2";
+import { HiOutlineHeart, HiHeart, HiOutlineShoppingCart, HiStar, HiOutlineStar } from "react-icons/hi2";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { useWishlist } from "../../context/WishlistContext";
 import "./ProductCard.css";
@@ -30,13 +24,7 @@ function ProductCard({ product }) {
   const renderStars = (value) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      stars.push(
-        i <= Math.round(value) ? (
-          <HiStar key={i} />
-        ) : (
-          <HiOutlineStar key={i} className="star-empty" />
-        ),
-      );
+      stars.push(i <= Math.round(value) ? <HiStar key={i} /> : <HiOutlineStar key={i} className="star-empty" />);
     }
     return stars;
   };
@@ -51,11 +39,7 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div
-      className="product-card"
-      onClick={() => navigate(`/products/${product.id}`)}
-      id={`product-card-${product.id}`}
-    >
+    <div className="product-card" onClick={() => navigate(`/products/${product.id}`)} id={`product-card-${product.id}`}>
       <div className="product-card-image">
         {primaryImage ? (
           <img src={primaryImage} alt={product.name} loading="lazy" />
@@ -65,17 +49,10 @@ function ProductCard({ product }) {
           </div>
         )}
 
-        {discount > 0 && (
-          <span className="product-card-badge badge-discount">
-            {Math.round(discount)}% OFF
-          </span>
-        )}
+        {discount > 0 && <span className="product-card-badge badge-discount">{Math.round(discount)}% OFF</span>}
 
         {product.is_featured && (
-          <span
-            className="product-card-badge badge-featured"
-            style={discount > 0 ? { top: "44px" } : {}}
-          >
+          <span className="product-card-badge badge-featured" style={discount > 0 ? { top: "44px" } : {}}>
             Featured
           </span>
         )}
@@ -86,24 +63,14 @@ function ProductCard({ product }) {
             e.stopPropagation();
             toggleWishlist(product);
           }}
-          title={
-            isInWishlist(product.id)
-              ? "Remove from wishlist"
-              : "Add to wishlist"
-          }
+          title={isInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
         >
-          {isInWishlist(product.id) ? (
-            <HiHeart style={{ color: "#ef4444" }} />
-          ) : (
-            <HiOutlineHeart />
-          )}
+          {isInWishlist(product.id) ? <HiHeart style={{ color: "#ef4444" }} /> : <HiOutlineHeart />}
         </button>
       </div>
 
       <div className="product-card-body">
-        {product.category && (
-          <span className="product-card-category">{product.category.name}</span>
-        )}
+        {product.category && <span className="product-card-category">{product.category.name}</span>}
 
         <h3 className="product-card-name">{product.name}</h3>
 
@@ -118,14 +85,8 @@ function ProductCard({ product }) {
 
         <div className="product-card-footer">
           <div className="product-card-price">
-            <span className="product-card-selling-price">
-              {formatPrice(sellingPrice)}
-            </span>
-            {basePrice > sellingPrice && (
-              <span className="product-card-base-price">
-                {formatPrice(basePrice)}
-              </span>
-            )}
+            <span className="product-card-selling-price">{formatPrice(sellingPrice)}</span>
+            {basePrice > sellingPrice && <span className="product-card-base-price">{formatPrice(basePrice)}</span>}
           </div>
 
           <button

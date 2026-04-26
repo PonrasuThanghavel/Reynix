@@ -1,9 +1,4 @@
-import {
-  startTransition,
-  useDeferredValue,
-  useMemo,
-  useState,
-} from "react";
+import { startTransition, useDeferredValue, useMemo, useState } from "react";
 import { apiCatalog, groupOrder } from "../../apiCatalog";
 import "./ApiCatalog.css";
 
@@ -19,15 +14,9 @@ function ApiCatalog() {
   const [methodFilter, setMethodFilter] = useState("ALL");
   const [selectedId, setSelectedId] = useState(apiCatalog[0].id);
   const [pathParams, setPathParams] = useState(apiCatalog[0].pathParams);
-  const [queryText, setQueryText] = useState(
-    stringifyEditorValue(apiCatalog[0].query),
-  );
-  const [bodyText, setBodyText] = useState(
-    stringifyEditorValue(apiCatalog[0].body),
-  );
-  const [headersText, setHeadersText] = useState(
-    '{\n  "Content-Type": "application/json"\n}',
-  );
+  const [queryText, setQueryText] = useState(stringifyEditorValue(apiCatalog[0].query));
+  const [bodyText, setBodyText] = useState(stringifyEditorValue(apiCatalog[0].body));
+  const [headersText, setHeadersText] = useState('{\n  "Content-Type": "application/json"\n}');
   const [response, setResponse] = useState(null);
   const [requestError, setRequestError] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -35,14 +24,13 @@ function ApiCatalog() {
 
   const selectedEndpoint = useMemo(
     () => apiCatalog.find((entry) => entry.id === selectedId) ?? apiCatalog[0],
-    [selectedId],
+    [selectedId]
   );
 
   const filteredEndpoints = useMemo(() => {
     const term = deferredSearch.trim().toLowerCase();
     return apiCatalog.filter((entry) => {
-      const matchesMethod =
-        methodFilter === "ALL" || entry.method === methodFilter;
+      const matchesMethod = methodFilter === "ALL" || entry.method === methodFilter;
       const matchesSearch =
         !term ||
         entry.title.toLowerCase().includes(term) ||
@@ -64,7 +52,7 @@ function ApiCatalog() {
 
   const resolvedPath = useMemo(
     () => hydratePath(selectedEndpoint.path, pathParams),
-    [selectedEndpoint.path, pathParams],
+    [selectedEndpoint.path, pathParams]
   );
 
   const queryPreview = useMemo(() => {
@@ -89,9 +77,7 @@ function ApiCatalog() {
     }
 
     const bodyLine =
-      shouldSendBody(selectedEndpoint.method) &&
-      parsedBody.ok &&
-      parsedBody.value !== null
+      shouldSendBody(selectedEndpoint.method) && parsedBody.ok && parsedBody.value !== null
         ? ` \\\n  --data '${JSON.stringify(parsedBody.value)}'`
         : "";
 
@@ -99,15 +85,7 @@ function ApiCatalog() {
     return `curl -X ${selectedEndpoint.method} "${baseUrl}${resolvedPath}${querySegment}"${
       headerLines.length ? ` \\\n  ${headerLines.join(" \\\n  ")}` : ""
     }${bodyLine}`;
-  }, [
-    baseUrl,
-    bodyText,
-    headersText,
-    queryPreview,
-    resolvedPath,
-    selectedEndpoint.method,
-    token,
-  ]);
+  }, [baseUrl, bodyText, headersText, queryPreview, resolvedPath, selectedEndpoint.method, token]);
 
   const handleEndpointSelect = (id) => {
     const nextEndpoint = apiCatalog.find((entry) => entry.id === id) ?? apiCatalog[0];
@@ -196,8 +174,7 @@ function ApiCatalog() {
           <p className="api-catalog-eyebrow">Reynix Backend</p>
           <h1>API Catalog</h1>
           <p className="api-catalog-subtle">
-            Browse every backend route, prepare payloads, and inspect raw API
-            responses from one place.
+            Browse every backend route, prepare payloads, and inspect raw API responses from one place.
           </p>
         </div>
 
@@ -213,10 +190,7 @@ function ApiCatalog() {
 
           <label className="api-catalog-field">
             <span>Method filter</span>
-            <select
-              value={methodFilter}
-              onChange={(event) => setMethodFilter(event.target.value)}
-            >
+            <select value={methodFilter} onChange={(event) => setMethodFilter(event.target.value)}>
               <option value="ALL">All methods</option>
               <option value="GET">GET</option>
               <option value="POST">POST</option>
@@ -232,10 +206,7 @@ function ApiCatalog() {
             if (!endpoints.length) return null;
 
             return (
-              <section
-                key={group}
-                className="api-catalog-sidebar-card api-catalog-group"
-              >
+              <section key={group} className="api-catalog-sidebar-card api-catalog-group">
                 <div className="api-catalog-group-heading">
                   <h2>{group}</h2>
                   <span>{endpoints.length}</span>
@@ -249,9 +220,7 @@ function ApiCatalog() {
                       className={`api-catalog-card ${entry.id === selectedEndpoint.id ? "active" : ""}`}
                       onClick={() => handleEndpointSelect(entry.id)}
                     >
-                      <span
-                        className={`api-catalog-method api-catalog-method-${entry.method.toLowerCase()}`}
-                      >
+                      <span className={`api-catalog-method api-catalog-method-${entry.method.toLowerCase()}`}>
                         {entry.method}
                       </span>
                       <strong>{entry.title}</strong>
@@ -274,14 +243,10 @@ function ApiCatalog() {
           </div>
 
           <div className="api-catalog-meta">
-            <span
-              className={`api-catalog-pill api-catalog-method-${selectedEndpoint.method.toLowerCase()}`}
-            >
+            <span className={`api-catalog-pill api-catalog-method-${selectedEndpoint.method.toLowerCase()}`}>
               {selectedEndpoint.method}
             </span>
-            <span className="api-catalog-pill api-catalog-pill-muted">
-              {selectedEndpoint.group}
-            </span>
+            <span className="api-catalog-pill api-catalog-pill-muted">{selectedEndpoint.group}</span>
             <span className="api-catalog-pill api-catalog-pill-muted">
               {selectedEndpoint.auth === "public" ? "Public" : "Protected"}
             </span>
@@ -297,10 +262,7 @@ function ApiCatalog() {
           <div className="api-catalog-stack">
             <label className="api-catalog-field">
               <span>API base URL</span>
-              <input
-                value={baseUrl}
-                onChange={(event) => setBaseUrl(event.target.value)}
-              />
+              <input value={baseUrl} onChange={(event) => setBaseUrl(event.target.value)} />
             </label>
 
             <label className="api-catalog-field">
@@ -368,9 +330,7 @@ function ApiCatalog() {
               <button
                 type="button"
                 className="api-catalog-button api-catalog-button-ghost"
-                onClick={() =>
-                  setBodyText(stringifyEditorValue(selectedEndpoint.body))
-                }
+                onClick={() => setBodyText(stringifyEditorValue(selectedEndpoint.body))}
               >
                 Reset example
               </button>
@@ -408,9 +368,7 @@ function ApiCatalog() {
 
           <div className="api-catalog-preview">
             <div className="api-catalog-preview-line">
-              <span
-                className={`api-catalog-pill api-catalog-method-${selectedEndpoint.method.toLowerCase()}`}
-              >
+              <span className={`api-catalog-pill api-catalog-method-${selectedEndpoint.method.toLowerCase()}`}>
                 {selectedEndpoint.method}
               </span>
               <code>
@@ -422,9 +380,7 @@ function ApiCatalog() {
             <pre>{curlPreview}</pre>
           </div>
 
-          {requestError ? (
-            <p className="api-catalog-error">{requestError}</p>
-          ) : null}
+          {requestError ? <p className="api-catalog-error">{requestError}</p> : null}
         </section>
 
         <section className="api-catalog-panel">
@@ -432,11 +388,7 @@ function ApiCatalog() {
             <h3>Response</h3>
             {response ? (
               <div className="api-catalog-response-meta">
-                <span
-                  className={
-                    response.ok ? "api-catalog-ok" : "api-catalog-error-pill"
-                  }
-                >
+                <span className={response.ok ? "api-catalog-ok" : "api-catalog-error-pill"}>
                   {response.status} {response.statusText}
                 </span>
                 <span>{response.durationMs} ms</span>
@@ -451,22 +403,17 @@ function ApiCatalog() {
               <div>
                 <h4>Body</h4>
                 <pre className="api-catalog-block">
-                  {response.data
-                    ? JSON.stringify(response.data, null, 2)
-                    : response.rawText || "(empty body)"}
+                  {response.data ? JSON.stringify(response.data, null, 2) : response.rawText || "(empty body)"}
                 </pre>
               </div>
               <div>
                 <h4>Headers</h4>
-                <pre className="api-catalog-block">
-                  {JSON.stringify(response.headers, null, 2)}
-                </pre>
+                <pre className="api-catalog-block">{JSON.stringify(response.headers, null, 2)}</pre>
               </div>
             </div>
           ) : (
             <div className="api-catalog-empty">
-              Choose an endpoint, tweak params or JSON, then send a request to
-              inspect the backend response here.
+              Choose an endpoint, tweak params or JSON, then send a request to inspect the backend response here.
             </div>
           )}
         </section>
@@ -495,9 +442,7 @@ function stringifyEditorValue(value) {
  * @returns {string} Resolved request path.
  */
 function hydratePath(path, params) {
-  return path.replace(/:([A-Za-z0-9_]+)/g, (_, key) =>
-    encodeURIComponent(params[key] ?? `:${key}`),
-  );
+  return path.replace(/:([A-Za-z0-9_]+)/g, (_, key) => encodeURIComponent(params[key] ?? `:${key}`));
 }
 
 /**
@@ -554,8 +499,7 @@ function buildQueryString(query) {
 
   const params = new URLSearchParams();
   for (const [key, rawValue] of Object.entries(query)) {
-    if (rawValue === "" || rawValue === null || rawValue === undefined)
-      continue;
+    if (rawValue === "" || rawValue === null || rawValue === undefined) continue;
 
     if (Array.isArray(rawValue)) {
       for (const item of rawValue) {

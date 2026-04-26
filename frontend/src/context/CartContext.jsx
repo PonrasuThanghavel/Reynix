@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { cartAPI } from "../api/cart";
 import { useAuth } from "./AuthContext";
 
@@ -22,11 +16,7 @@ export function CartProvider({ children }) {
 
   const items = cart?.items || [];
   const itemCount = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
-  const subtotal = items.reduce(
-    (sum, item) =>
-      sum + (item.quantity || 0) * Number.parseFloat(item.unit_price || 0),
-    0,
-  );
+  const subtotal = items.reduce((sum, item) => sum + (item.quantity || 0) * Number.parseFloat(item.unit_price || 0), 0);
 
   const fetchCart = useCallback(async () => {
     if (!user) {

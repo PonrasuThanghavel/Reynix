@@ -171,11 +171,7 @@
   padding: 0.8rem;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(
-    135deg,
-    var(--accent-primary),
-    var(--accent-secondary)
-  );
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   color: white;
   font-size: 0.95rem;
   font-weight: 600;

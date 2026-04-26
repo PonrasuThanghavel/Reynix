@@ -403,8 +403,7 @@ export const apiCatalog = [
     method: "POST",
     path: "/orders",
     title: "Create order",
-    description:
-      "Checkout the current cart and create seller orders and shipments.",
+    description: "Checkout the current cart and create seller orders and shipments.",
     auth: "token",
     body: {
       shipping_address_id: 1,
@@ -419,8 +418,7 @@ export const apiCatalog = [
     method: "GET",
     path: "/orders",
     title: "List orders",
-    description:
-      "List the current user's orders, or all for admin depending on token.",
+    description: "List the current user's orders, or all for admin depending on token.",
     auth: "token",
     query: {
       page: 1,

@@ -154,9 +154,7 @@ function Checkout() {
                     className={`address-card ${selectedAddressId === addr.id ? "selected" : ""}`}
                     onClick={() => setSelectedAddressId(addr.id)}
                   >
-                    {addr.is_default && (
-                      <span className="address-label">Default</span>
-                    )}
+                    {addr.is_default && <span className="address-label">Default</span>}
                     <div className="address-name">{addr.full_name}</div>
                     <div className="address-text">
                       {addr.address_line1}
@@ -168,10 +166,7 @@ function Checkout() {
                   </div>
                 ))}
 
-                <button
-                  className="checkout-add-address-btn"
-                  onClick={() => setShowAddressForm(true)}
-                >
+                <button className="checkout-add-address-btn" onClick={() => setShowAddressForm(true)}>
                   <HiOutlinePlus size={24} />
                   Add New Address
                 </button>
@@ -233,18 +228,14 @@ function Checkout() {
                     placeholder="City / Town"
                     required
                     value={addressData.city}
-                    onChange={(e) =>
-                      setAddressData({ ...addressData, city: e.target.value })
-                    }
+                    onChange={(e) => setAddressData({ ...addressData, city: e.target.value })}
                   />
                   <input
                     type="text"
                     placeholder="State"
                     required
                     value={addressData.state}
-                    onChange={(e) =>
-                      setAddressData({ ...addressData, state: e.target.value })
-                    }
+                    onChange={(e) => setAddressData({ ...addressData, state: e.target.value })}
                   />
                 </div>
                 <div className="form-row">
@@ -263,19 +254,11 @@ function Checkout() {
                 </div>
 
                 <div className="form-actions">
-                  <button
-                    type="submit"
-                    className="btn-save-address"
-                    disabled={loading}
-                  >
+                  <button type="submit" className="btn-save-address" disabled={loading}>
                     {loading ? "Saving..." : "Save and Deliver Here"}
                   </button>
                   {addresses.length > 0 && (
-                    <button
-                      type="button"
-                      className="btn-cancel-address"
-                      onClick={() => setShowAddressForm(false)}
-                    >
+                    <button type="button" className="btn-cancel-address" onClick={() => setShowAddressForm(false)}>
                       Cancel
                     </button>
                   )}
@@ -291,9 +274,7 @@ function Checkout() {
             </h2>
 
             <div className="payment-methods">
-              <label
-                className={`payment-method ${paymentMethod === "cod" ? "selected" : ""}`}
-              >
+              <label className={`payment-method ${paymentMethod === "cod" ? "selected" : ""}`}>
                 <input
                   type="radio"
                   name="payment"
@@ -303,15 +284,11 @@ function Checkout() {
                 />
                 <div className="payment-method-label">
                   <span className="payment-method-title">Cash on Delivery</span>
-                  <span className="payment-method-desc">
-                    Pay when your order arrives
-                  </span>
+                  <span className="payment-method-desc">Pay when your order arrives</span>
                 </div>
               </label>
 
-              <label
-                className={`payment-method ${paymentMethod === "card" ? "selected" : ""}`}
-              >
+              <label className={`payment-method ${paymentMethod === "card" ? "selected" : ""}`}>
                 <input
                   type="radio"
                   name="payment"
@@ -320,12 +297,8 @@ function Checkout() {
                   onChange={() => setPaymentMethod("card")}
                 />
                 <div className="payment-method-label">
-                  <span className="payment-method-title">
-                    Credit / Debit Card
-                  </span>
-                  <span className="payment-method-desc">
-                    Secure online payment
-                  </span>
+                  <span className="payment-method-title">Credit / Debit Card</span>
+                  <span className="payment-method-desc">Secure online payment</span>
                 </div>
                 <FaCcVisa />
               </label>
@@ -353,12 +326,8 @@ function Checkout() {
                     <span className="checkout-item-qty">{item.quantity}</span>
                   </div>
                   <div className="checkout-item-info">
-                    <span className="checkout-item-name">
-                      {item.product?.name}
-                    </span>
-                    <span className="checkout-item-price">
-                      {formatPrice(lineTotal)}
-                    </span>
+                    <span className="checkout-item-name">{item.product?.name}</span>
+                    <span className="checkout-item-price">{formatPrice(lineTotal)}</span>
                   </div>
                 </div>
               );
@@ -372,9 +341,7 @@ function Checkout() {
             </div>
             <div className="summary-row">
               <span className="label">Delivery:</span>
-              <span className="value">
-                {shipping === 0 ? "FREE" : formatPrice(shipping)}
-              </span>
+              <span className="value">{shipping === 0 ? "FREE" : formatPrice(shipping)}</span>
             </div>
             <div className="summary-total">
               <span className="label">Order Total:</span>
@@ -383,10 +350,7 @@ function Checkout() {
           </div>
 
           {!selectedAddressId && !showAddressForm && addresses.length > 0 && (
-            <div
-              className="checkout-error"
-              style={{ marginTop: "1.5rem", marginBottom: 0 }}
-            >
+            <div className="checkout-error" style={{ marginTop: "1.5rem", marginBottom: 0 }}>
               <HiOutlineExclamationCircle /> Please select an address
             </div>
           )}

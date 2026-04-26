@@ -91,15 +91,11 @@ function Orders() {
               <div className="order-meta">
                 <div className="order-meta-item">
                   <span className="order-meta-label">Order Placed</span>
-                  <span className="order-meta-value">
-                    {formatDate(order.created_at)}
-                  </span>
+                  <span className="order-meta-value">{formatDate(order.created_at)}</span>
                 </div>
                 <div className="order-meta-item">
                   <span className="order-meta-label">Total Amount</span>
-                  <span className="order-meta-value">
-                    {formatPrice(order.total_amount)}
-                  </span>
+                  <span className="order-meta-value">{formatPrice(order.total_amount)}</span>
                 </div>
                 <div className="order-meta-item">
                   <span className="order-meta-label">Order #</span>
@@ -108,9 +104,7 @@ function Orders() {
               </div>
 
               <div className="order-header-right">
-                <span className={`status-badge ${order.status}`}>
-                  {order.status}
-                </span>
+                <span className={`status-badge ${order.status}`}>{order.status}</span>
                 <Link to={`/orders/${order.id}`} className="order-view-details">
                   View Details
                 </Link>
@@ -140,17 +134,10 @@ function Orders() {
                     )}
                   </div>
                   <div className="order-item-info">
-                    <Link
-                      to={`/products/${item.product_id}`}
-                      className="order-item-name"
-                    >
+                    <Link to={`/products/${item.product_id}`} className="order-item-name">
                       {item.product_name}
                     </Link>
-                    {item.variant_name && (
-                      <div className="order-item-variant">
-                        Variant: {item.variant_name}
-                      </div>
-                    )}
+                    {item.variant_name && <div className="order-item-variant">Variant: {item.variant_name}</div>}
                   </div>
                   <div className="order-item-price">
                     {item.quantity} x {formatPrice(item.unit_price)}
