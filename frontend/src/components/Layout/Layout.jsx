@@ -11,7 +11,6 @@ import {
   HiOutlineSquares2X2,
   HiOutlineBuildingStorefront,
   HiOutlineClipboardDocumentList,
-  HiOutlineCommandLine,
 } from "react-icons/hi2";
 import { RiShoppingBag3Line } from "react-icons/ri";
 import "./Layout.css";
@@ -64,7 +63,6 @@ function Layout() {
           </NavLink>
           <NavLink to="/products">Products</NavLink>
           <NavLink to="/categories">Categories</NavLink>
-          <NavLink to="/api-catalog">API Catalog</NavLink>
         </div>
 
         <div className="navbar-actions">
@@ -98,14 +96,9 @@ function Layout() {
                     )}
 
                     {user.role === "admin" && (
-                      <>
-                        <Link to="/admin/dashboard" onClick={() => setDropdownOpen(false)}>
-                          <HiOutlineSquares2X2 /> Admin Panel
-                        </Link>
-                        <Link to="/api-catalog" onClick={() => setDropdownOpen(false)}>
-                          <HiOutlineCommandLine /> API Catalog
-                        </Link>
-                      </>
+                      <Link to="/admin/dashboard" onClick={() => setDropdownOpen(false)}>
+                        <HiOutlineSquares2X2 /> Admin Panel
+                      </Link>
                     )}
 
                     <Link to="/settings" onClick={() => setDropdownOpen(false)}>
