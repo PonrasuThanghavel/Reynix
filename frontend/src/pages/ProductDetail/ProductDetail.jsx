@@ -50,9 +50,7 @@ function ProductDetail() {
           setSelectedVariant(p.variants[0]);
         }
       } catch (err) {
-        setError(
-          err.response?.data?.message || "Failed to load product details."
-        );
+        setError(err.response?.data?.message || "Failed to load product details.");
       } finally {
         setLoading(false);
       }
@@ -96,10 +94,7 @@ function ProductDetail() {
   const inventory = product.inventory || [];
 
   // Calculate total stock
-  const totalStock = inventory.reduce(
-    (sum, inv) => sum + (inv.quantity || 0),
-    0
-  );
+  const totalStock = inventory.reduce((sum, inv) => sum + (inv.quantity || 0), 0);
 
   const formatPrice = (price) =>
     new Intl.NumberFormat("en-IN", {
@@ -112,20 +107,13 @@ function ProductDetail() {
   const renderStars = (value) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-      stars.push(
-        i <= Math.round(value) ? (
-          <HiStar key={i} />
-        ) : (
-          <HiOutlineStar key={i} className="star-empty" />
-        )
-      );
+      stars.push(i <= Math.round(value) ? <HiStar key={i} /> : <HiOutlineStar key={i} className="star-empty" />);
     }
     return stars;
   };
 
   const getStockStatus = () => {
-    if (totalStock <= 0)
-      return { dot: "stock-out", text: "stock-text-out", label: "Out of stock" };
+    if (totalStock <= 0) return { dot: "stock-out", text: "stock-text-out", label: "Out of stock" };
     if (totalStock <= 5)
       return {
         dot: "stock-low",
@@ -165,10 +153,7 @@ function ProductDetail() {
         <div className="product-gallery">
           <div className="product-gallery-main">
             {images.length > 0 ? (
-              <img
-                src={images[selectedImage]?.image_url}
-                alt={images[selectedImage]?.alt_text || product.name}
-              />
+              <img src={images[selectedImage]?.image_url} alt={images[selectedImage]?.alt_text || product.name} />
             ) : (
               <div className="product-gallery-placeholder">
                 <HiOutlinePhotograph />
@@ -199,9 +184,7 @@ function ProductDetail() {
             {product.category && (
               <>
                 <span className="separator">›</span>
-                <Link to={`/products?category_id=${product.category.id}`}>
-                  {product.category.name}
-                </Link>
+                <Link to={`/products?category_id=${product.category.id}`}>{product.category.name}</Link>
               </>
             )}
             <span className="separator">›</span>
@@ -224,19 +207,9 @@ function ProductDetail() {
 
           {/* Price */}
           <div className="product-price-block">
-            <span className="product-selling-price">
-              {formatPrice(sellingPrice)}
-            </span>
-            {basePrice > sellingPrice && (
-              <span className="product-base-price">
-                {formatPrice(basePrice)}
-              </span>
-            )}
-            {discount > 0 && (
-              <span className="product-discount-tag">
-                {Math.round(discount)}% OFF
-              </span>
-            )}
+            <span className="product-selling-price">{formatPrice(sellingPrice)}</span>
+            {basePrice > sellingPrice && <span className="product-base-price">{formatPrice(basePrice)}</span>}
+            {discount > 0 && <span className="product-discount-tag">{Math.round(discount)}% OFF</span>}
           </div>
 
           {/* Short Description */}
@@ -288,9 +261,7 @@ function ProductDetail() {
                 <div className="quantity-value">{quantity}</div>
                 <button
                   className="quantity-btn"
-                  onClick={() =>
-                    setQuantity((q) => Math.min(totalStock, q + 1))
-                  }
+                  onClick={() => setQuantity((q) => Math.min(totalStock, q + 1))}
                   disabled={quantity >= totalStock}
                 >
                   <HiOutlinePlus />
@@ -310,16 +281,12 @@ function ProductDetail() {
               <HiOutlineShoppingCart />
               {totalStock <= 0 ? "Out of Stock" : addingToCart ? "Adding..." : "Add to Cart"}
             </button>
-            <button 
-              className="product-wishlist-btn" 
+            <button
+              className="product-wishlist-btn"
               onClick={() => toggleWishlist(product)}
               title={isInWishlist(product?.id) ? "Remove from wishlist" : "Add to wishlist"}
             >
-              {isInWishlist(product?.id) ? (
-                <HiHeart style={{ color: "#ef4444" }} />
-              ) : (
-                <HiOutlineHeart />
-              )}
+              {isInWishlist(product?.id) ? <HiHeart style={{ color: "#ef4444" }} /> : <HiOutlineHeart />}
             </button>
           </div>
 

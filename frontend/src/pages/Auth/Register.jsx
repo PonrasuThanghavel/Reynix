@@ -39,19 +39,15 @@ function Register() {
   const validate = () => {
     const newErrors = {};
     if (!form.full_name.trim()) newErrors.full_name = "Name is required";
-    else if (form.full_name.trim().length < 2)
-      newErrors.full_name = "Name must be at least 2 characters";
+    else if (form.full_name.trim().length < 2) newErrors.full_name = "Name must be at least 2 characters";
 
     if (!form.email.trim()) newErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(form.email))
-      newErrors.email = "Enter a valid email";
+    else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "Enter a valid email";
 
     if (!form.password) newErrors.password = "Password is required";
-    else if (form.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters";
+    else if (form.password.length < 8) newErrors.password = "Password must be at least 8 characters";
 
-    if (form.password !== form.confirmPassword)
-      newErrors.confirmPassword = "Passwords don't match";
+    if (form.password !== form.confirmPassword) newErrors.confirmPassword = "Passwords don't match";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -77,8 +73,7 @@ function Register() {
       toast.success(`Welcome to Reynix, ${user.full_name}!`);
       navigate("/");
     } catch {
-      const message =
-        "Registration failed. Please try again.";
+      const message = "Registration failed. Please try again.";
       setApiError(message);
     } finally {
       setLoading(false);
@@ -113,9 +108,7 @@ function Register() {
                 autoComplete="name"
               />
             </div>
-            {errors.full_name && (
-              <span className="field-error">{errors.full_name}</span>
-            )}
+            {errors.full_name && <span className="field-error">{errors.full_name}</span>}
           </div>
 
           <div className="form-group">
@@ -133,9 +126,7 @@ function Register() {
                 autoComplete="email"
               />
             </div>
-            {errors.email && (
-              <span className="field-error">{errors.email}</span>
-            )}
+            {errors.email && <span className="field-error">{errors.email}</span>}
           </div>
 
           <div className="form-group">
@@ -161,9 +152,7 @@ function Register() {
                 {showPassword ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
               </button>
             </div>
-            {errors.password && (
-              <span className="field-error">{errors.password}</span>
-            )}
+            {errors.password && <span className="field-error">{errors.password}</span>}
           </div>
 
           <div className="form-group">
@@ -181,9 +170,7 @@ function Register() {
                 autoComplete="new-password"
               />
             </div>
-            {errors.confirmPassword && (
-              <span className="field-error">{errors.confirmPassword}</span>
-            )}
+            {errors.confirmPassword && <span className="field-error">{errors.confirmPassword}</span>}
           </div>
 
           <div className="form-group">
@@ -201,12 +188,7 @@ function Register() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="auth-submit-btn"
-            disabled={loading}
-            id="register-submit-btn"
-          >
+          <button type="submit" className="auth-submit-btn" disabled={loading} id="register-submit-btn">
             {loading && <span className="spinner" />}
             {loading ? "Creating account..." : "Create account"}
           </button>

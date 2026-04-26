@@ -47,11 +47,7 @@ function Categories() {
       ) : (
         <div className="categories-grid">
           {categories.map((cat) => (
-            <Link 
-              to={`/products?category_id=${cat.id}`} 
-              key={cat.id} 
-              className="category-card"
-            >
+            <Link to={`/products?category_id=${cat.id}`} key={cat.id} className="category-card">
               <div className="category-img-wrap">
                 {cat.image_url ? (
                   <img src={cat.image_url} alt={cat.name} className="category-img" loading="lazy" />
@@ -64,9 +60,7 @@ function Categories() {
                   {cat.name}
                   <HiArrowRight />
                 </div>
-                {cat.description && (
-                  <p className="category-description">{cat.description}</p>
-                )}
+                {cat.description && <p className="category-description">{cat.description}</p>}
               </div>
             </Link>
           ))}

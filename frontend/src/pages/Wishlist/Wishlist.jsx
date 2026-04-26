@@ -4,11 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { wishlistAPI } from "../../api/wishlist";
 import toast from "react-hot-toast";
-import {
-  HiOutlineHeart,
-  HiOutlineShoppingCart,
-  HiOutlineTrash,
-} from "react-icons/hi2";
+import { HiOutlineHeart, HiOutlineShoppingCart, HiOutlineTrash } from "react-icons/hi2";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import "./Wishlist.css";
 
@@ -116,9 +112,7 @@ function Wishlist() {
                 <Link to={`/products/${item.product_id}`} className="wishlist-item-name">
                   {item.product?.name || "Product"}
                 </Link>
-                {item.variant && (
-                  <div className="wishlist-item-variant">{item.variant.variant_name}</div>
-                )}
+                {item.variant && <div className="wishlist-item-variant">{item.variant.variant_name}</div>}
                 <div className="wishlist-item-price">
                   {formatPrice(sellingPrice)}
                   {basePrice > sellingPrice && (

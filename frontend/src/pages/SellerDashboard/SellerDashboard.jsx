@@ -203,28 +203,36 @@ function SellerDashboard() {
       {/* ── Stats ── */}
       <div className="seller-stats">
         <div className="stat-card">
-          <div className="stat-icon blue"><HiOutlineCube /></div>
+          <div className="stat-icon blue">
+            <HiOutlineCube />
+          </div>
           <div className="stat-info">
             <h3>{totalProducts}</h3>
             <p>Total Products</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon green"><HiOutlineCube /></div>
+          <div className="stat-icon green">
+            <HiOutlineCube />
+          </div>
           <div className="stat-info">
             <h3>{activeProducts}</h3>
             <p>Active Products</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon yellow"><HiOutlineClipboardDocumentList /></div>
+          <div className="stat-icon yellow">
+            <HiOutlineClipboardDocumentList />
+          </div>
           <div className="stat-info">
             <h3>{pendingOrders}</h3>
             <p>Pending Orders</p>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon purple"><HiOutlineCurrencyRupee /></div>
+          <div className="stat-icon purple">
+            <HiOutlineCurrencyRupee />
+          </div>
           <div className="stat-info">
             <h3>{formatPrice(totalRevenue)}</h3>
             <p>Total Revenue</p>
@@ -252,7 +260,9 @@ function SellerDashboard() {
       {activeTab === "products" && (
         <>
           <div className="seller-toolbar">
-            <h2>{totalProducts} Product{totalProducts !== 1 ? "s" : ""}</h2>
+            <h2>
+              {totalProducts} Product{totalProducts !== 1 ? "s" : ""}
+            </h2>
             <button className="btn-add-product" onClick={openCreateModal}>
               <HiOutlinePlus /> Add Product
             </button>
@@ -288,18 +298,10 @@ function SellerDashboard() {
                       </td>
                       <td>
                         <div className="table-actions">
-                          <button
-                            className="table-action-btn"
-                            title="Edit"
-                            onClick={() => openEditModal(p)}
-                          >
+                          <button className="table-action-btn" title="Edit" onClick={() => openEditModal(p)}>
                             <HiOutlinePencilSquare />
                           </button>
-                          <button
-                            className="table-action-btn danger"
-                            title="Delete"
-                            onClick={() => handleDelete(p)}
-                          >
+                          <button className="table-action-btn danger" title="Delete" onClick={() => handleDelete(p)}>
                             <HiOutlineTrash />
                           </button>
                         </div>
@@ -317,7 +319,9 @@ function SellerDashboard() {
       {activeTab === "orders" && (
         <>
           <div className="seller-toolbar">
-            <h2>{orders.length} Order{orders.length !== 1 ? "s" : ""}</h2>
+            <h2>
+              {orders.length} Order{orders.length !== 1 ? "s" : ""}
+            </h2>
           </div>
 
           {orders.length === 0 ? (
@@ -331,9 +335,7 @@ function SellerDashboard() {
                 <div className="seller-order-card" key={so.id}>
                   <div className="seller-order-top">
                     <div>
-                      <span className="seller-order-id">
-                        Order #{so.order?.order_number || so.id}
-                      </span>
+                      <span className="seller-order-id">Order #{so.order?.order_number || so.id}</span>
                       <span className="seller-order-date" style={{ marginLeft: 12 }}>
                         {formatDate(so.created_at)}
                       </span>
@@ -359,21 +361,15 @@ function SellerDashboard() {
                     <div className="seller-order-address">
                       {so.order?.shippingAddress && (
                         <>
-                          Ship to: {so.order.shippingAddress.full_name},{" "}
-                          {so.order.shippingAddress.city},{" "}
-                          {so.order.shippingAddress.state}{" "}
-                          {so.order.shippingAddress.postal_code}
+                          Ship to: {so.order.shippingAddress.full_name}, {so.order.shippingAddress.city},{" "}
+                          {so.order.shippingAddress.state} {so.order.shippingAddress.postal_code}
                         </>
                       )}
                     </div>
 
                     <div className="seller-order-actions">
                       {so.status === "pending" && (
-                        <button
-                          className="btn-pack"
-                          onClick={() => handlePack(so.id)}
-                          disabled={actionId === so.id}
-                        >
+                        <button className="btn-pack" onClick={() => handlePack(so.id)} disabled={actionId === so.id}>
                           <HiOutlineArchiveBox style={{ marginRight: 4, verticalAlign: "middle" }} />
                           {actionId === so.id ? "Packing..." : "Mark as Packed"}
                         </button>
@@ -439,7 +435,9 @@ function SellerDashboard() {
                   >
                     <option value="">Select category</option>
                     {categories.map((c) => (
-                      <option key={c.id} value={c.id}>{c.name}</option>
+                      <option key={c.id} value={c.id}>
+                        {c.name}
+                      </option>
                     ))}
                   </select>
                 </label>
@@ -452,7 +450,9 @@ function SellerDashboard() {
                   >
                     <option value="">No brand</option>
                     {brands.map((b) => (
-                      <option key={b.id} value={b.id}>{b.name}</option>
+                      <option key={b.id} value={b.id}>
+                        {b.name}
+                      </option>
                     ))}
                   </select>
                 </label>

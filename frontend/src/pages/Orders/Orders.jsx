@@ -80,11 +80,10 @@ function Orders() {
   return (
     <div className="orders-page">
       <h1>Your Orders</h1>
-      
+
       <div className="orders-container">
         {orders.map((order) => (
           <div className="order-card" key={order.id}>
-            
             <div className="order-header">
               <div className="order-meta">
                 <div className="order-meta-item">
@@ -100,7 +99,7 @@ function Orders() {
                   <span className="order-meta-value">{order.order_number}</span>
                 </div>
               </div>
-              
+
               <div className="order-header-right">
                 <span className={`status-badge ${order.status}`}>{order.status}</span>
                 <Link to={`/orders/${order.id}`} className="order-view-details">
@@ -117,7 +116,11 @@ function Orders() {
                         In order list, we usually don't fetch all images to save bandwidth,
                         so we use placeholder if images aren't eagerly loaded on index by default */}
                     {item.product?.images?.[0]?.image_url ? (
-                      <img src={item.product.images[0].image_url} alt={item.product_name} style={{width: "100%", height: "100%", borderRadius: "8px", objectFit: "cover"}} />
+                      <img
+                        src={item.product.images[0].image_url}
+                        alt={item.product_name}
+                        style={{ width: "100%", height: "100%", borderRadius: "8px", objectFit: "cover" }}
+                      />
                     ) : (
                       <HiOutlinePhotograph />
                     )}
@@ -126,9 +129,7 @@ function Orders() {
                     <Link to={`/products/${item.product_id}`} className="order-item-name">
                       {item.product_name}
                     </Link>
-                    {item.variant_name && (
-                      <div className="order-item-variant">Variant: {item.variant_name}</div>
-                    )}
+                    {item.variant_name && <div className="order-item-variant">Variant: {item.variant_name}</div>}
                   </div>
                   <div className="order-item-price">
                     {item.quantity} x {formatPrice(item.unit_price)}
@@ -136,7 +137,6 @@ function Orders() {
                 </div>
               ))}
             </div>
-            
           </div>
         ))}
       </div>

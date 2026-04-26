@@ -4,11 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { profileAPI } from "../../api/wishlist";
 import { addressAPI } from "../../api/orders";
 import toast from "react-hot-toast";
-import {
-  HiOutlineMapPin,
-  HiOutlineTrash,
-  HiOutlineCheckCircle,
-} from "react-icons/hi2";
+import { HiOutlineMapPin, HiOutlineTrash, HiOutlineCheckCircle } from "react-icons/hi2";
 import "./Profile.css";
 
 function Profile() {
@@ -144,10 +140,7 @@ function Profile() {
             </div>
             <div className="profile-field">
               <label>Gender</label>
-              <select
-                value={formData.gender}
-                onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-              >
+              <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })}>
                 <option value="">Prefer not to say</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -173,7 +166,10 @@ function Profile() {
           </button>
         </form>
 
-        <div className="profile-meta" style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--border-subtle)" }}>
+        <div
+          className="profile-meta"
+          style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--border-subtle)" }}
+        >
           <div className="profile-meta-item">
             <span className="profile-meta-label">Member Since</span>
             <span className="profile-meta-value">{formatDate(user.created_at)}</span>
@@ -189,7 +185,9 @@ function Profile() {
 
       {/* ── Addresses ── */}
       <div className="profile-section">
-        <h2><HiOutlineMapPin /> Saved Addresses</h2>
+        <h2>
+          <HiOutlineMapPin /> Saved Addresses
+        </h2>
 
         {addresses.length === 0 ? (
           <p className="profile-no-addresses">No saved addresses yet. You can add one during checkout.</p>

@@ -30,7 +30,6 @@ export function WishlistProvider({ children }) {
     }
   }, [user]);
 
-
   const toggleWishlist = async (product) => {
     if (!user) {
       toast.error("Please log in to use wishlist");
@@ -38,7 +37,7 @@ export function WishlistProvider({ children }) {
     }
 
     const isWishlisted = wishlistIds.has(product.id);
-    
+
     try {
       if (isWishlisted) {
         // Find the wishlist item id

@@ -12,8 +12,7 @@ function Home() {
         <div className="home-welcome">
           <HiOutlineSparkles />
           <p>
-            Welcome back, <strong>{user.full_name}</strong>! You&apos;re logged
-            in as a <strong>{user.role}</strong>.
+            Welcome back, <strong>{user.full_name}</strong>! You&apos;re logged in as a <strong>{user.role}</strong>.
           </p>
         </div>
       )}
@@ -21,8 +20,8 @@ function Home() {
       <section className="home-hero">
         <h1>Shop Smarter with Reynix</h1>
         <p>
-          Discover amazing products from multiple vendors, all in one place.
-          Fast delivery, secure payments, and great deals await.
+          Discover amazing products from multiple vendors, all in one place. Fast delivery, secure payments, and great
+          deals await.
         </p>
         <div className="home-hero-actions">
           <Link to="/products" className="btn-primary">

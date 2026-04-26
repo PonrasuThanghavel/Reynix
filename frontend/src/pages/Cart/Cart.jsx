@@ -16,8 +16,7 @@ import "./Cart.css";
 
 function Cart() {
   const { user } = useAuth();
-  const { items, itemCount, subtotal, loading, updateItem, removeItem, clearCart } =
-    useCart();
+  const { items, itemCount, subtotal, loading, updateItem, removeItem, clearCart } = useCart();
   const [updatingId, setUpdatingId] = useState(null);
 
   const formatPrice = (price) =>
@@ -109,7 +108,10 @@ function Cart() {
   return (
     <div className="cart-page">
       <h1>
-        Cart <span>({itemCount} item{itemCount !== 1 ? "s" : ""})</span>
+        Cart{" "}
+        <span>
+          ({itemCount} item{itemCount !== 1 ? "s" : ""})
+        </span>
       </h1>
 
       <div className="cart-layout">
@@ -136,56 +138,35 @@ function Cart() {
                 </div>
 
                 <div className="cart-item-info">
-                  <Link
-                    to={`/products/${item.product_id}`}
-                    className="cart-item-name"
-                  >
+                  <Link to={`/products/${item.product_id}`} className="cart-item-name">
                     {productName}
                   </Link>
 
-                  {item.variant && (
-                    <span className="cart-item-variant">
-                      {item.variant.variant_name}
-                    </span>
-                  )}
+                  {item.variant && <span className="cart-item-variant">{item.variant.variant_name}</span>}
 
-                  <span className="cart-item-price">
-                    {formatPrice(unitPrice)} each
-                  </span>
+                  <span className="cart-item-price">{formatPrice(unitPrice)} each</span>
 
                   <div className="cart-item-actions">
                     <div className="cart-item-quantity">
                       <button
                         className="cart-qty-btn"
-                        onClick={() =>
-                          handleQuantityChange(item.id, item.quantity - 1)
-                        }
+                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
                         disabled={item.quantity <= 1}
                       >
                         <HiOutlineMinus />
                       </button>
                       <div className="cart-qty-value">{item.quantity}</div>
-                      <button
-                        className="cart-qty-btn"
-                        onClick={() =>
-                          handleQuantityChange(item.id, item.quantity + 1)
-                        }
-                      >
+                      <button className="cart-qty-btn" onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
                         <HiOutlinePlus />
                       </button>
                     </div>
 
-                    <button
-                      className="cart-item-remove"
-                      onClick={() => handleRemove(item.id, productName)}
-                    >
+                    <button className="cart-item-remove" onClick={() => handleRemove(item.id, productName)}>
                       <HiOutlineTrash /> Remove
                     </button>
 
                     <div className="cart-item-total">
-                      <span className="cart-item-total-price">
-                        {formatPrice(lineTotal)}
-                      </span>
+                      <span className="cart-item-total-price">{formatPrice(lineTotal)}</span>
                     </div>
                   </div>
                 </div>
@@ -229,7 +210,7 @@ function Cart() {
             <span className="value">{formatPrice(total)}</span>
           </div>
 
-          <Link to="/checkout" className="cart-checkout-btn" id="checkout-btn" style={{textDecoration: 'none'}}>
+          <Link to="/checkout" className="cart-checkout-btn" id="checkout-btn" style={{ textDecoration: "none" }}>
             Proceed to Checkout <HiOutlineArrowRight />
           </Link>
 

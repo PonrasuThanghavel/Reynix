@@ -23,7 +23,7 @@ function Checkout() {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cod"); // "cod" or "card"
-  
+
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [addressData, setAddressData] = useState({
     full_name: user?.full_name || "",
@@ -106,7 +106,7 @@ function Checkout() {
       };
 
       await orderAPI.createOrder(payload);
-      
+
       // If payment was implemented, we'd redirect to Stripe/payment gateway here.
       // For now, assume success and clear cart
       await clearCart();
@@ -137,7 +137,6 @@ function Checkout() {
       <div className="checkout-layout">
         {/* ── Left Column: Checkout Steps ── */}
         <div className="checkout-steps">
-          
           {/* Step 1: Address */}
           <div className="checkout-section">
             <h2>
@@ -164,10 +163,7 @@ function Checkout() {
                   </div>
                 ))}
 
-                <button
-                  className="checkout-add-address-btn"
-                  onClick={() => setShowAddressForm(true)}
-                >
+                <button className="checkout-add-address-btn" onClick={() => setShowAddressForm(true)}>
                   <HiOutlinePlus size={24} />
                   Add New Address
                 </button>
@@ -228,17 +224,13 @@ function Checkout() {
                     onChange={(e) => setAddressData({ ...addressData, postal_code: e.target.value })}
                   />
                 </div>
-                
+
                 <div className="form-actions">
                   <button type="submit" className="btn-save-address" disabled={loading}>
                     {loading ? "Saving..." : "Save and Deliver Here"}
                   </button>
                   {addresses.length > 0 && (
-                    <button
-                      type="button"
-                      className="btn-cancel-address"
-                      onClick={() => setShowAddressForm(false)}
-                    >
+                    <button type="button" className="btn-cancel-address" onClick={() => setShowAddressForm(false)}>
                       Cancel
                     </button>
                   )}

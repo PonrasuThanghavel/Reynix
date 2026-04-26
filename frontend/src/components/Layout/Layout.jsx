@@ -73,68 +73,41 @@ function Layout() {
               </Link>
               <Link to="/cart" className="navbar-icon-btn" title="Cart">
                 <HiOutlineShoppingBag />
-                {itemCount > 0 && <span className="badge">{itemCount > 9 ? '9+' : itemCount}</span>}
+                {itemCount > 0 && <span className="badge">{itemCount > 9 ? "9+" : itemCount}</span>}
               </Link>
 
-              <div
-                className="navbar-user"
-                ref={dropdownRef}
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <div className="navbar-avatar">
-                  {getInitials(user.full_name)}
-                </div>
-                <span className="navbar-user-name">
-                  {user.full_name?.split(" ")[0]}
-                </span>
+              <div className="navbar-user" ref={dropdownRef} onClick={() => setDropdownOpen(!dropdownOpen)}>
+                <div className="navbar-avatar">{getInitials(user.full_name)}</div>
+                <span className="navbar-user-name">{user.full_name?.split(" ")[0]}</span>
 
                 {dropdownOpen && (
                   <div className="navbar-dropdown" id="user-dropdown">
-                    <Link
-                      to="/profile"
-                      onClick={() => setDropdownOpen(false)}
-                    >
+                    <Link to="/profile" onClick={() => setDropdownOpen(false)}>
                       <HiOutlineUser /> My Profile
                     </Link>
-                    <Link
-                      to="/orders"
-                      onClick={() => setDropdownOpen(false)}
-                    >
+                    <Link to="/orders" onClick={() => setDropdownOpen(false)}>
                       <HiOutlineClipboardDocumentList /> My Orders
                     </Link>
 
                     {user.role === "seller" && (
-                      <Link
-                        to="/seller/dashboard"
-                        onClick={() => setDropdownOpen(false)}
-                      >
+                      <Link to="/seller/dashboard" onClick={() => setDropdownOpen(false)}>
                         <HiOutlineBuildingStorefront /> Seller Dashboard
                       </Link>
                     )}
 
                     {user.role === "admin" && (
-                      <Link
-                        to="/admin/dashboard"
-                        onClick={() => setDropdownOpen(false)}
-                      >
+                      <Link to="/admin/dashboard" onClick={() => setDropdownOpen(false)}>
                         <HiOutlineSquares2X2 /> Admin Panel
                       </Link>
                     )}
 
-                    <Link
-                      to="/settings"
-                      onClick={() => setDropdownOpen(false)}
-                    >
+                    <Link to="/settings" onClick={() => setDropdownOpen(false)}>
                       <HiOutlineCog6Tooth /> Settings
                     </Link>
 
                     <div className="divider" />
 
-                    <button
-                      className="logout-btn"
-                      onClick={handleLogout}
-                      id="logout-button"
-                    >
+                    <button className="logout-btn" onClick={handleLogout} id="logout-button">
                       <HiOutlineArrowRightOnRectangle /> Logout
                     </button>
                   </div>

@@ -31,27 +31,29 @@ function Products() {
     page: Number.parseInt(searchParams.get("page"), 10) || 1,
   };
 
-  const updateFilter = useCallback((key, value) => {
-    setSearchParams((prevParams) => {
-      const newParams = new URLSearchParams(prevParams);
-      if (value) {
-        newParams.set(key, value);
-      } else {
-        newParams.delete(key);
-      }
-      if (key !== "page") {
-        newParams.delete("page");
-      }
-      return newParams;
-    });
-  }, [setSearchParams]);
+  const updateFilter = useCallback(
+    (key, value) => {
+      setSearchParams((prevParams) => {
+        const newParams = new URLSearchParams(prevParams);
+        if (value) {
+          newParams.set(key, value);
+        } else {
+          newParams.delete(key);
+        }
+        if (key !== "page") {
+          newParams.delete("page");
+        }
+        return newParams;
+      });
+    },
+    [setSearchParams]
+  );
 
   const clearFilters = () => {
     setSearchParams({});
   };
 
-  const hasActiveFilters =
-    filters.search || filters.category_id || filters.brand_id || filters.sort;
+  const hasActiveFilters = filters.search || filters.category_id || filters.brand_id || filters.sort;
 
   // Fetch categories and brands once
   useEffect(() => {
@@ -91,19 +93,11 @@ function Products() {
       setProducts(res.data.data.products || []);
       setPagination(res.data.data.pagination || null);
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Failed to load products. Is the backend running?"
-      );
+      setError(err.response?.data?.message || "Failed to load products. Is the backend running?");
     } finally {
       setLoading(false);
     }
-  }, [
-    filters.search,
-    filters.category_id,
-    filters.brand_id,
-    filters.sort,
-    filters.page,
-  ]);
+  }, [filters.search, filters.category_id, filters.brand_id, filters.sort, filters.page]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -146,20 +140,13 @@ function Products() {
 
     return (
       <div className="products-pagination">
-        <button
-          className="pagination-btn"
-          disabled={page <= 1}
-          onClick={() => updateFilter("page", String(page - 1))}
-        >
+        <button className="pagination-btn" disabled={page <= 1} onClick={() => updateFilter("page", String(page - 1))}>
           <HiOutlineChevronLeft />
         </button>
 
         {start > 1 && (
           <>
-            <button
-              className="pagination-btn"
-              onClick={() => updateFilter("page", "1")}
-            >
+            <button className="pagination-btn" onClick={() => updateFilter("page", "1")}>
               1
             </button>
             {start > 2 && <span className="pagination-info">…</span>}
@@ -179,10 +166,7 @@ function Products() {
         {end < totalPages && (
           <>
             {end < totalPages - 1 && <span className="pagination-info">…</span>}
-            <button
-              className="pagination-btn"
-              onClick={() => updateFilter("page", String(totalPages))}
-            >
+            <button className="pagination-btn" onClick={() => updateFilter("page", String(totalPages))}>
               {totalPages}
             </button>
           </>
@@ -208,9 +192,7 @@ function Products() {
       <div className="products-header">
         <h1>
           Products
-          {pagination && (
-            <span className="products-count">({pagination.total})</span>
-          )}
+          {pagination && <span className="products-count">({pagination.total})</span>}
         </h1>
       </div>
 

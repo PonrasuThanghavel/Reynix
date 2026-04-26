@@ -56,12 +56,30 @@
   flex-shrink: 0;
 }
 
-.admin-stat-icon.blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
-.admin-stat-icon.green { background: rgba(34, 197, 94, 0.12); color: #22c55e; }
-.admin-stat-icon.yellow { background: rgba(234, 179, 8, 0.12); color: #eab308; }
-.admin-stat-icon.purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
-.admin-stat-icon.red { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
-.admin-stat-icon.cyan { background: rgba(6, 182, 212, 0.12); color: #06b6d4; }
+.admin-stat-icon.blue {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+.admin-stat-icon.green {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+.admin-stat-icon.yellow {
+  background: rgba(234, 179, 8, 0.12);
+  color: #eab308;
+}
+.admin-stat-icon.purple {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+}
+.admin-stat-icon.red {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+.admin-stat-icon.cyan {
+  background: rgba(6, 182, 212, 0.12);
+  color: #06b6d4;
+}
 
 .admin-stat-info h3 {
   font-size: 1.4rem;
@@ -220,10 +238,22 @@
   text-transform: capitalize;
 }
 
-.role-badge.buyer { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
-.role-badge.seller { background: rgba(34, 197, 94, 0.12); color: #22c55e; }
-.role-badge.admin { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
-.role-badge.shipper { background: rgba(234, 179, 8, 0.12); color: #eab308; }
+.role-badge.buyer {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+.role-badge.seller {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+.role-badge.admin {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+}
+.role-badge.shipper {
+  background: rgba(234, 179, 8, 0.12);
+  color: #eab308;
+}
 
 .user-active-dot {
   width: 8px;

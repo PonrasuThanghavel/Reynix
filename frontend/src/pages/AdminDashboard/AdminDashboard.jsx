@@ -72,7 +72,12 @@ function AdminDashboard() {
 
   // ── Helpers ──
   const formatPrice = (price) =>
-    new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(price);
+    new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
 
   const formatDate = (d) =>
     new Date(d).toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric" });
@@ -185,28 +190,58 @@ function AdminDashboard() {
       {/* ── Stats ── */}
       <div className="admin-stats">
         <div className="admin-stat-card">
-          <div className="admin-stat-icon blue"><HiOutlineUsers /></div>
-          <div className="admin-stat-info"><h3>{totalUsers}</h3><p>Total Users</p></div>
+          <div className="admin-stat-icon blue">
+            <HiOutlineUsers />
+          </div>
+          <div className="admin-stat-info">
+            <h3>{totalUsers}</h3>
+            <p>Total Users</p>
+          </div>
         </div>
         <div className="admin-stat-card">
-          <div className="admin-stat-icon green"><HiOutlineBuildingStorefront /></div>
-          <div className="admin-stat-info"><h3>{totalSellers}</h3><p>Sellers</p></div>
+          <div className="admin-stat-icon green">
+            <HiOutlineBuildingStorefront />
+          </div>
+          <div className="admin-stat-info">
+            <h3>{totalSellers}</h3>
+            <p>Sellers</p>
+          </div>
         </div>
         <div className="admin-stat-card">
-          <div className="admin-stat-icon purple"><HiOutlineCube /></div>
-          <div className="admin-stat-info"><h3>{totalProducts}</h3><p>Products</p></div>
+          <div className="admin-stat-icon purple">
+            <HiOutlineCube />
+          </div>
+          <div className="admin-stat-info">
+            <h3>{totalProducts}</h3>
+            <p>Products</p>
+          </div>
         </div>
         <div className="admin-stat-card">
-          <div className="admin-stat-icon yellow"><HiOutlineClipboardDocumentList /></div>
-          <div className="admin-stat-info"><h3>{totalOrders}</h3><p>Total Orders</p></div>
+          <div className="admin-stat-icon yellow">
+            <HiOutlineClipboardDocumentList />
+          </div>
+          <div className="admin-stat-info">
+            <h3>{totalOrders}</h3>
+            <p>Total Orders</p>
+          </div>
         </div>
         <div className="admin-stat-card">
-          <div className="admin-stat-icon red"><HiOutlineExclamationTriangle /></div>
-          <div className="admin-stat-info"><h3>{pendingOrders}</h3><p>Pending</p></div>
+          <div className="admin-stat-icon red">
+            <HiOutlineExclamationTriangle />
+          </div>
+          <div className="admin-stat-info">
+            <h3>{pendingOrders}</h3>
+            <p>Pending</p>
+          </div>
         </div>
         <div className="admin-stat-card">
-          <div className="admin-stat-icon cyan"><HiOutlineCurrencyRupee /></div>
-          <div className="admin-stat-info"><h3>{formatPrice(totalRevenue)}</h3><p>Revenue</p></div>
+          <div className="admin-stat-icon cyan">
+            <HiOutlineCurrencyRupee />
+          </div>
+          <div className="admin-stat-info">
+            <h3>{formatPrice(totalRevenue)}</h3>
+            <p>Revenue</p>
+          </div>
         </div>
       </div>
 
@@ -251,7 +286,9 @@ function AdminDashboard() {
                   <tr key={u.id}>
                     <td>{u.full_name}</td>
                     <td style={{ color: "var(--text-secondary)" }}>{u.email}</td>
-                    <td><span className={`role-badge ${u.role}`}>{u.role}</span></td>
+                    <td>
+                      <span className={`role-badge ${u.role}`}>{u.role}</span>
+                    </td>
                     <td>
                       <span className={`user-active-dot ${u.is_active ? "active" : "inactive"}`} />{" "}
                       {u.is_active ? "Active" : "Inactive"}
@@ -269,19 +306,30 @@ function AdminDashboard() {
       {activeTab === "orders" && (
         <>
           <div className="admin-toolbar">
-            <h2>{filteredOrders.length} Order{filteredOrders.length !== 1 ? "s" : ""}</h2>
+            <h2>
+              {filteredOrders.length} Order{filteredOrders.length !== 1 ? "s" : ""}
+            </h2>
             <div className="admin-toolbar-actions">
-              <select className="admin-filter-select" value={orderFilter} onChange={(e) => setOrderFilter(e.target.value)}>
+              <select
+                className="admin-filter-select"
+                value={orderFilter}
+                onChange={(e) => setOrderFilter(e.target.value)}
+              >
                 <option value="">All Statuses</option>
                 {ORDER_STATUSES.map((s) => (
-                  <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+                  <option key={s} value={s}>
+                    {s.charAt(0).toUpperCase() + s.slice(1)}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
 
           {filteredOrders.length === 0 ? (
-            <div className="admin-empty"><HiOutlineClipboardDocumentList /><p>No orders found.</p></div>
+            <div className="admin-empty">
+              <HiOutlineClipboardDocumentList />
+              <p>No orders found.</p>
+            </div>
           ) : (
             <div className="admin-table-wrap">
               <table className="admin-table">
@@ -302,7 +350,9 @@ function AdminDashboard() {
                       <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{formatDate(o.created_at)}</td>
                       <td>{o.items?.length || 0}</td>
                       <td style={{ fontWeight: 600 }}>{formatPrice(o.total_amount)}</td>
-                      <td><span className={`status-badge ${o.status}`}>{o.status}</span></td>
+                      <td>
+                        <span className={`status-badge ${o.status}`}>{o.status}</span>
+                      </td>
                       <td>
                         <select
                           className="status-select"
@@ -310,7 +360,9 @@ function AdminDashboard() {
                           onChange={(e) => handleStatusChange(o.id, e.target.value)}
                         >
                           {ORDER_STATUSES.map((s) => (
-                            <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+                            <option key={s} value={s}>
+                              {s.charAt(0).toUpperCase() + s.slice(1)}
+                            </option>
                           ))}
                         </select>
                       </td>
@@ -327,11 +379,16 @@ function AdminDashboard() {
       {activeTab === "products" && (
         <>
           <div className="admin-toolbar">
-            <h2>{totalProducts} Product{totalProducts !== 1 ? "s" : ""}</h2>
+            <h2>
+              {totalProducts} Product{totalProducts !== 1 ? "s" : ""}
+            </h2>
           </div>
 
           {products.length === 0 ? (
-            <div className="admin-empty"><HiOutlineCube /><p>No products found.</p></div>
+            <div className="admin-empty">
+              <HiOutlineCube />
+              <p>No products found.</p>
+            </div>
           ) : (
             <div className="admin-table-wrap">
               <table className="admin-table">
@@ -348,13 +405,31 @@ function AdminDashboard() {
                 <tbody>
                   {products.map((p) => (
                     <tr key={p.id}>
-                      <td style={{ fontWeight: 500, maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</td>
-                      <td style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>{p.seller?.full_name || "—"}</td>
+                      <td
+                        style={{
+                          fontWeight: 500,
+                          maxWidth: 220,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {p.name}
+                      </td>
+                      <td style={{ color: "var(--text-secondary)", fontSize: "0.82rem" }}>
+                        {p.seller?.full_name || "—"}
+                      </td>
                       <td>{p.category?.name || "—"}</td>
                       <td>{formatPrice(p.selling_price)}</td>
-                      <td><span className={`table-status ${p.status}`}>{p.status}</span></td>
                       <td>
-                        <button className="table-action-btn danger" title="Delete" onClick={() => handleDeleteProduct(p)}>
+                        <span className={`table-status ${p.status}`}>{p.status}</span>
+                      </td>
+                      <td>
+                        <button
+                          className="table-action-btn danger"
+                          title="Delete"
+                          onClick={() => handleDeleteProduct(p)}
+                        >
                           <HiOutlineTrash />
                         </button>
                       </td>
@@ -371,7 +446,9 @@ function AdminDashboard() {
       {activeTab === "categories" && (
         <>
           <div className="admin-toolbar">
-            <h2>{categories.length} Categor{categories.length !== 1 ? "ies" : "y"}</h2>
+            <h2>
+              {categories.length} Categor{categories.length !== 1 ? "ies" : "y"}
+            </h2>
           </div>
 
           <form className="admin-inline-form" onSubmit={handleAddCategory}>
@@ -382,11 +459,16 @@ function AdminDashboard() {
               onChange={(e) => setNewCategoryName(e.target.value)}
               required
             />
-            <button type="submit"><HiOutlinePlus style={{ verticalAlign: "middle", marginRight: 4 }} /> Add</button>
+            <button type="submit">
+              <HiOutlinePlus style={{ verticalAlign: "middle", marginRight: 4 }} /> Add
+            </button>
           </form>
 
           {categories.length === 0 ? (
-            <div className="admin-empty"><HiOutlineTag /><p>No categories yet.</p></div>
+            <div className="admin-empty">
+              <HiOutlineTag />
+              <p>No categories yet.</p>
+            </div>
           ) : (
             <div className="admin-table-wrap">
               <table className="admin-table">
@@ -405,7 +487,11 @@ function AdminDashboard() {
                       <td style={{ fontWeight: 500 }}>{c.name}</td>
                       <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{c.slug || "—"}</td>
                       <td>
-                        <button className="table-action-btn danger" title="Delete" onClick={() => handleDeleteCategory(c.id)}>
+                        <button
+                          className="table-action-btn danger"
+                          title="Delete"
+                          onClick={() => handleDeleteCategory(c.id)}
+                        >
                           <HiOutlineTrash />
                         </button>
                       </td>
@@ -422,7 +508,9 @@ function AdminDashboard() {
       {activeTab === "brands" && (
         <>
           <div className="admin-toolbar">
-            <h2>{brands.length} Brand{brands.length !== 1 ? "s" : ""}</h2>
+            <h2>
+              {brands.length} Brand{brands.length !== 1 ? "s" : ""}
+            </h2>
           </div>
 
           <form className="admin-inline-form" onSubmit={handleAddBrand}>
@@ -433,11 +521,16 @@ function AdminDashboard() {
               onChange={(e) => setNewBrandName(e.target.value)}
               required
             />
-            <button type="submit"><HiOutlinePlus style={{ verticalAlign: "middle", marginRight: 4 }} /> Add</button>
+            <button type="submit">
+              <HiOutlinePlus style={{ verticalAlign: "middle", marginRight: 4 }} /> Add
+            </button>
           </form>
 
           {brands.length === 0 ? (
-            <div className="admin-empty"><HiOutlineBuildingStorefront /><p>No brands yet.</p></div>
+            <div className="admin-empty">
+              <HiOutlineBuildingStorefront />
+              <p>No brands yet.</p>
+            </div>
           ) : (
             <div className="admin-table-wrap">
               <table className="admin-table">
@@ -456,7 +549,11 @@ function AdminDashboard() {
                       <td style={{ fontWeight: 500 }}>{b.name}</td>
                       <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{b.slug || "—"}</td>
                       <td>
-                        <button className="table-action-btn danger" title="Delete" onClick={() => handleDeleteBrand(b.id)}>
+                        <button
+                          className="table-action-btn danger"
+                          title="Delete"
+                          onClick={() => handleDeleteBrand(b.id)}
+                        >
                           <HiOutlineTrash />
                         </button>
                       </td>
