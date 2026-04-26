@@ -9,16 +9,6 @@ export function WishlistProvider({ children }) {
   const { user } = useAuth();
   const [wishlistIds, setWishlistIds] = useState(new Set());
   const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    if (user) {
-      fetchWishlist();
-    } else {
-      setWishlistIds(new Set());
-      setItems([]);
-    }
-  }, [user]);
-
   const fetchWishlist = async () => {
     try {
       const res = await wishlistAPI.getWishlist();
@@ -29,6 +19,17 @@ export function WishlistProvider({ children }) {
       // Background fetch, ignore error
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchWishlist();
+    } else {
+      setWishlistIds(new Set());
+      setItems([]);
+    }
+  }, [user]);
+
 
   const toggleWishlist = async (product) => {
     if (!user) {

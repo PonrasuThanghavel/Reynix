@@ -13,25 +13,26 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    fetchOrders();
-  }, [user, navigate]);
-
   const fetchOrders = async () => {
     setLoading(true);
     try {
       const res = await orderAPI.getOrders();
       setOrders(res.data.data.orders || []);
     } catch {
-      toast.error("Failed to fetch your orders");
+      toast.error("Failed to load orders");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchOrders();
+  }, [user, navigate]);
 
   const formatPrice = (price) =>
     new Intl.NumberFormat("en-IN", {

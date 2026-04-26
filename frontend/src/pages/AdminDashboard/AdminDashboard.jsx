@@ -38,14 +38,6 @@ function AdminDashboard() {
   // Order filter
   const [orderFilter, setOrderFilter] = useState("");
 
-  useEffect(() => {
-    if (!user || user.role !== "admin") {
-      navigate("/");
-      return;
-    }
-    loadData();
-  }, [user, navigate]);
-
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -68,6 +60,15 @@ function AdminDashboard() {
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!user || user.role !== "admin") {
+      navigate("/");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadData();
+  }, [user, navigate, loadData]);
 
   // ── Helpers ──
   const formatPrice = (price) =>

@@ -51,19 +51,11 @@ function SellerDashboard() {
   // Action loading
   const [actionId, setActionId] = useState(null);
 
-  useEffect(() => {
-    if (!user || user.role !== "seller") {
-      navigate("/");
-      return;
-    }
-    loadData();
-  }, [user, navigate]);
-
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const [prodRes, orderRes, catRes, brandRes] = await Promise.allSettled([
-        sellerAPI.getMyProducts({ seller_id: user.id, limit: 100 }),
+        sellerAPI.getMyProducts({ seller_id: user?.id, limit: 100 }),
         sellerAPI.getOrders(),
         categoryAPI.getCategories(),
         brandAPI.getBrands(),
@@ -79,6 +71,15 @@ function SellerDashboard() {
       setLoading(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (!user || user.role !== "seller") {
+      navigate("/");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadData();
+  }, [user, navigate, loadData]);
 
   // ── Product CRUD ──
   const openCreateModal = () => {

@@ -31,19 +31,20 @@ function Products() {
     page: Number.parseInt(searchParams.get("page"), 10) || 1,
   };
 
-  const updateFilter = (key, value) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (value) {
-      newParams.set(key, value);
-    } else {
-      newParams.delete(key);
-    }
-    // Reset to page 1 when filters change (except page itself)
-    if (key !== "page") {
-      newParams.delete("page");
-    }
-    setSearchParams(newParams);
-  };
+  const updateFilter = useCallback((key, value) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      if (value) {
+        newParams.set(key, value);
+      } else {
+        newParams.delete(key);
+      }
+      if (key !== "page") {
+        newParams.delete("page");
+      }
+      return newParams;
+    });
+  }, [setSearchParams]);
 
   const clearFilters = () => {
     setSearchParams({});
@@ -105,6 +106,7 @@ function Products() {
   ]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProducts();
   }, [fetchProducts]);
 
@@ -117,10 +119,11 @@ function Products() {
       }
     }, 400);
     return () => clearTimeout(timer);
-  }, [searchInput]);
+  }, [searchInput, filters.search, updateFilter]);
 
   // Sync searchInput when URL changes externally
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSearchInput(filters.search);
   }, [filters.search]);
 

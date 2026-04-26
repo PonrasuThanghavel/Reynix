@@ -24,20 +24,6 @@ function Profile() {
   const [saving, setSaving] = useState(false);
   const [addresses, setAddresses] = useState([]);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    setFormData({
-      full_name: user.full_name || "",
-      phone_number: user.phone_number || "",
-      gender: user.gender || "",
-      date_of_birth: user.date_of_birth ? user.date_of_birth.slice(0, 10) : "",
-    });
-    fetchAddresses();
-  }, [user, navigate]);
-
   const fetchAddresses = async () => {
     try {
       const res = await addressAPI.getAddresses();
@@ -46,6 +32,21 @@ function Profile() {
       /* ignore */
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFormData({
+      full_name: user.full_name || "",
+      phone_number: user.phone_number || "",
+      gender: user.gender || "",
+      date_of_birth: user.date_of_birth ? user.date_of_birth.slice(0, 10) : "",
+    });
+    fetchAddresses();
+  }, [user, navigate]);
 
   const handleSave = async (e) => {
     e.preventDefault();

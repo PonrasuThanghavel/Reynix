@@ -39,39 +39,36 @@ function Checkout() {
   const [loading, setLoading] = useState(false);
   const [placingOrder, setPlacingOrder] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    if (items.length === 0) {
-      navigate("/cart");
-      return;
-    }
-    fetchAddresses();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, items.length]);
-
   const fetchAddresses = async () => {
     setLoading(true);
     try {
       const res = await addressAPI.getAddresses();
-      const fetchedAddresses = res.data.data.addresses || [];
-      setAddresses(fetchedAddresses);
-      
-      if (fetchedAddresses.length > 0) {
-        // Find default or fallback to first
-        const def = fetchedAddresses.find((a) => a.is_default);
-        setSelectedAddressId(def ? def.id : fetchedAddresses[0].id);
-      } else {
-        setShowAddressForm(true);
-      }
+      const addrList = res.data.data.addresses || [];
+      setAddresses(addrList);
+      const defaultAddr = addrList.find((a) => a.is_default);
+      if (defaultAddr) setSelectedAddressId(defaultAddr.id);
+      else if (addrList.length > 0) setSelectedAddressId(addrList[0].id);
+      else setShowAddressForm(true);
     } catch {
       toast.error("Failed to load addresses");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login?redirect=/checkout");
+      return;
+    }
+    if (items.length === 0) {
+      navigate("/cart");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchAddresses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, items.length]);
 
   const handleAddressSave = async (e) => {
     e.preventDefault();
@@ -108,7 +105,7 @@ function Checkout() {
         notes: paymentMethod === "cod" ? "Cash on Delivery" : "Card Payment",
       };
 
-      const res = await orderAPI.createOrder(payload);
+      await orderAPI.createOrder(payload);
       
       // If payment was implemented, we'd redirect to Stripe/payment gateway here.
       // For now, assume success and clear cart

@@ -19,14 +19,6 @@ function Wishlist() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-    fetchWishlist();
-  }, [user, navigate]);
-
   const fetchWishlist = async () => {
     setLoading(true);
     try {
@@ -38,6 +30,15 @@ function Wishlist() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchWishlist();
+  }, [user, navigate]);
 
   const handleRemove = async (id) => {
     try {

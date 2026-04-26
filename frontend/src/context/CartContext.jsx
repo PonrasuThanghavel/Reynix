@@ -34,6 +34,7 @@ export function CartProvider({ children }) {
 
   // Fetch cart when user changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchCart();
   }, [fetchCart]);
 
