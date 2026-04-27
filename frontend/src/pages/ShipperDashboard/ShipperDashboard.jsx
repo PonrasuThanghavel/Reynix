@@ -58,20 +58,12 @@ function ShipperDashboard() {
   }, [user, navigate, loadData]);
 
   const packedItemCount = useMemo(
-    () =>
-      availableShipments.reduce(
-        (total, shipment) => total + (shipment.sellerOrder?.items?.length || 0),
-        0
-      ),
+    () => availableShipments.reduce((total, shipment) => total + (shipment.sellerOrder?.items?.length || 0), 0),
     [availableShipments]
   );
 
   const assignedItemCount = useMemo(
-    () =>
-      assignedShipments.reduce(
-        (total, shipment) => total + (shipment.sellerOrder?.items?.length || 0),
-        0
-      ),
+    () => assignedShipments.reduce((total, shipment) => total + (shipment.sellerOrder?.items?.length || 0), 0),
     [assignedShipments]
   );
 
@@ -169,7 +161,8 @@ function ShipperDashboard() {
                     <HiOutlineUser /> Seller: {shipment.sellerOrder?.seller?.full_name || "Unknown seller"}
                   </span>
                   <span>
-                    <HiOutlineClipboardDocumentList /> Order: {shipment.sellerOrder?.order?.order_number || shipment.order_id}
+                    <HiOutlineClipboardDocumentList /> Order:{" "}
+                    {shipment.sellerOrder?.order?.order_number || shipment.order_id}
                   </span>
                   <span>
                     <HiOutlineMapPin /> {shipment.sellerOrder?.order?.shippingAddress?.city || "Unknown city"}
@@ -221,7 +214,8 @@ function ShipperDashboard() {
                     <HiOutlineUser /> Seller: {shipment.sellerOrder?.seller?.full_name || "Unknown seller"}
                   </span>
                   <span>
-                    <HiOutlineClipboardDocumentList /> Order: {shipment.sellerOrder?.order?.order_number || shipment.order_id}
+                    <HiOutlineClipboardDocumentList /> Order:{" "}
+                    {shipment.sellerOrder?.order?.order_number || shipment.order_id}
                   </span>
                   <span>
                     <HiOutlineMapPin />{" "}
