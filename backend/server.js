@@ -82,11 +82,9 @@ app.use(errorHandler);
 const startServer = async () => {
   await connectDB();
 
-  // Sync database (alter in dev, do nothing in prod)
-  if (process.env.NODE_ENV === "development") {
-    await sequelize.sync({ alter: true });
-    logger.info("Database tables synced", { mode: "alter" });
-  }
+  const syncOptions = process.env.NODE_ENV === "development" ? { alter: true } : {};
+  await sequelize.sync(syncOptions);
+  logger.info("Database tables synced", { mode: process.env.NODE_ENV === "development" ? "alter" : "safe-sync" });
 
   app.listen(PORT, () => {
     logger.info("Server running", { port: PORT, url: `http://localhost:${PORT}` });

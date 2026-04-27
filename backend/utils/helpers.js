@@ -1,6 +1,8 @@
 /**
  * Generates a unique order number with prefix and timestamp.
  * Format: ORD-<timestamp>-<random>
+ *
+ * @returns {string} Generated order number.
  */
 const generateOrderNumber = () => {
   const timestamp = Date.now().toString(36).toUpperCase();
@@ -10,6 +12,9 @@ const generateOrderNumber = () => {
 
 /**
  * Creates a URL-friendly slug from a string.
+ *
+ * @param {string} text Source text.
+ * @returns {string} Slugified text.
  */
 const slugify = (text) => {
   return text
@@ -22,6 +27,14 @@ const slugify = (text) => {
 
 /**
  * Standard API response wrapper.
+ *
+ * @param {import("express").Response} res Express response.
+ * @param {number} statusCode HTTP status code.
+ * @param {boolean} success Whether the request succeeded.
+ * @param {string} message Response message.
+ * @param {unknown} [data=null] Optional response payload.
+ * @param {unknown} [meta=null] Optional metadata payload.
+ * @returns {import("express").Response} JSON response.
  */
 const apiResponse = (res, statusCode, success, message, data = null, meta = null) => {
   const response = { success, message };

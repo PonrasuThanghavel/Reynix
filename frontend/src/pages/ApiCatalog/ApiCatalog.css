@@ -1,0 +1,316 @@
+.api-catalog-page {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.api-catalog-sidebar {
+  display: grid;
+  gap: 1rem;
+  align-self: start;
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow: auto;
+}
+
+.api-catalog-sidebar-card,
+.api-catalog-panel,
+.api-catalog-preview,
+.api-catalog-empty {
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+  box-shadow: var(--shadow-soft);
+}
+
+.api-catalog-sidebar-card {
+  padding: 1rem;
+}
+
+.api-catalog-eyebrow {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.api-catalog-subtle {
+  color: var(--text-secondary);
+}
+
+.api-catalog-filters,
+.api-catalog-stack,
+.api-catalog-list,
+.api-catalog-groups,
+.api-catalog-workspace {
+  display: grid;
+  gap: 1rem;
+}
+
+.api-catalog-group-heading,
+.api-catalog-section-head,
+.api-catalog-preview-line,
+.api-catalog-meta,
+.api-catalog-response-meta,
+.api-catalog-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.api-catalog-group-heading,
+.api-catalog-section-head {
+  justify-content: space-between;
+}
+
+.api-catalog-group-heading h2,
+.api-catalog-section-head h3,
+.api-catalog-response-grid h4 {
+  font-size: 1rem;
+}
+
+.api-catalog-group-heading span,
+.api-catalog-response-meta span {
+  color: var(--text-secondary);
+}
+
+.api-catalog-card {
+  width: 100%;
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.9rem;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.api-catalog-card:hover,
+.api-catalog-card:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(99, 102, 241, 0.6);
+  outline: none;
+}
+
+.api-catalog-card.active {
+  border-color: rgba(99, 102, 241, 0.8);
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.api-catalog-card code,
+.api-catalog-preview code,
+.api-catalog-preview pre,
+.api-catalog-block,
+.api-catalog-field textarea,
+.api-catalog-field input,
+.api-catalog-field select,
+.api-catalog-editor {
+  font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+}
+
+.api-catalog-panel {
+  padding: 1.25rem;
+}
+
+.api-catalog-hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.api-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.api-catalog-subgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.api-catalog-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.api-catalog-field span {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+.api-catalog-field input,
+.api-catalog-field select,
+.api-catalog-field textarea,
+.api-catalog-editor,
+.api-catalog-block,
+.api-catalog-preview pre {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+}
+
+.api-catalog-field input:focus,
+.api-catalog-field select:focus,
+.api-catalog-field textarea:focus,
+.api-catalog-editor:focus {
+  outline: 2px solid rgba(99, 102, 241, 0.35);
+  border-color: rgba(99, 102, 241, 0.7);
+}
+
+.api-catalog-editor,
+.api-catalog-preview pre,
+.api-catalog-block {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow: auto;
+}
+
+.api-catalog-button {
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.api-catalog-button:hover {
+  transform: translateY(-1px);
+}
+
+.api-catalog-button-primary {
+  border-color: rgba(99, 102, 241, 0.7);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: #fff;
+  font-weight: 700;
+}
+
+.api-catalog-button-primary:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.api-catalog-button-ghost {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.api-catalog-preview {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.api-catalog-pill,
+.api-catalog-method,
+.api-catalog-ok,
+.api-catalog-error-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.api-catalog-pill-muted {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.api-catalog-method-get,
+.api-catalog-ok {
+  background: rgba(34, 197, 94, 0.16);
+  color: #86efac;
+}
+
+.api-catalog-method-post {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+}
+
+.api-catalog-method-put {
+  background: rgba(99, 102, 241, 0.16);
+  color: #a5b4fc;
+}
+
+.api-catalog-method-delete,
+.api-catalog-error-pill {
+  background: rgba(239, 68, 68, 0.16);
+  color: #fca5a5;
+}
+
+.api-catalog-response-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.api-catalog-empty {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.api-catalog-error {
+  color: #fca5a5;
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 1180px) {
+  .api-catalog-page {
+    grid-template-columns: 1fr;
+  }
+
+  .api-catalog-sidebar {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .api-catalog-page {
+    padding: 1rem;
+  }
+
+  .api-catalog-hero,
+  .api-catalog-grid,
+  .api-catalog-subgrid,
+  .api-catalog-response-grid {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .api-catalog-section-head,
+  .api-catalog-group-heading {
+    gap: 1rem;
+  }
+
+  .api-catalog-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}

@@ -39,6 +39,7 @@ A modern, high-performance **multi-vendor E-Commerce platform** designed for a s
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - **Runtime**: Node.js (v18+)
 - **Framework**: Express.js
 - **Database**: PostgreSQL
@@ -48,6 +49,7 @@ A modern, high-performance **multi-vendor E-Commerce platform** designed for a s
 - **Logging**: Custom Logger
 
 ### Frontend
+
 - **Framework**: React 18+
 - **Build Tool**: Vite
 - **Language**: JavaScript/JSX
@@ -165,13 +167,13 @@ SMTP_PASS=your_password
 
 Comprehensive documentation is available in the [backend/docs](./backend/docs/) directory:
 
-| Document | Purpose |
-|----------|---------|
-| [API Reference](./backend/docs/API.md) | Complete API endpoints with request/response examples |
-| [Controllers](./backend/docs/CONTROLLERS.md) | Request flow and service layer architecture |
-| [Data Models](./backend/docs/MODELS.md) | Database schema and entity relationships |
-| [Utilities](./backend/docs/UTILS.md) | Authentication, validation, and error handling |
-| [Testing](./backend/docs/TESTING.md) | Test strategies and examples |
+| Document                                     | Purpose                                               |
+| -------------------------------------------- | ----------------------------------------------------- |
+| [API Reference](./backend/docs/API.md)       | Complete API endpoints with request/response examples |
+| [Controllers](./backend/docs/CONTROLLERS.md) | Request flow and service layer architecture           |
+| [Data Models](./backend/docs/MODELS.md)      | Database schema and entity relationships              |
+| [Utilities](./backend/docs/UTILS.md)         | Authentication, validation, and error handling        |
+| [Testing](./backend/docs/TESTING.md)         | Test strategies and examples                          |
 
 ---
 
@@ -194,6 +196,7 @@ node test_api.js
 ```
 
 This script:
+
 - Creates test admin, seller, and buyer accounts
 - Sets up product categories and brands
 - Creates sample products with variants

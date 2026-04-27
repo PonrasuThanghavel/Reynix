@@ -4,6 +4,11 @@ const AppError = require("./appError");
 
 /**
  * Middleware to verify JWT and attach user to req.
+ *
+ * @param {import("express").Request} req Express request.
+ * @param {import("express").Response} res Express response.
+ * @param {import("express").NextFunction} next Express next callback.
+ * @returns {Promise<void>} Resolves when authentication completes.
  */
 const authenticate = async (req, res, next) => {
   try {
@@ -35,6 +40,9 @@ const authenticate = async (req, res, next) => {
 
 /**
  * Middleware to restrict access by role.
+ *
+ * @param {...string} roles Allowed user roles.
+ * @returns {import("express").RequestHandler} Express middleware enforcing role access.
  */
 const authorize = (...roles) => {
   return (req, res, next) => {

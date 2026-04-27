@@ -10,6 +10,15 @@ exports.getShipments = async (req, res, next) => {
   }
 };
 
+exports.getAvailableShipments = async (req, res, next) => {
+  try {
+    const shipments = await shipmentService.getAvailablePackedShipments();
+    apiResponse(res, 200, true, "Available packed shipments fetched", { shipments });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getShipmentById = async (req, res, next) => {
   try {
     const shipment = await shipmentService.getShipmentForShipper(req.user.id, req.params.id);

@@ -2,6 +2,14 @@
 
 const API_URL = "http://localhost:5000/api";
 
+/**
+ * Send a POST request to the test API.
+ *
+ * @param {string} endpoint API endpoint path.
+ * @param {object} body JSON request body.
+ * @param {string | null} [token=null] Optional bearer token.
+ * @returns {Promise<object | null>} Parsed JSON response or null on failure.
+ */
 async function postData(endpoint, body, token = null) {
   const headers = { "Content-Type": "application/json" };
   if (token) headers["Authorization"] = `Bearer ${token}`;
@@ -19,6 +27,13 @@ async function postData(endpoint, body, token = null) {
   return data;
 }
 
+/**
+ * Send a GET request to the test API.
+ *
+ * @param {string} endpoint API endpoint path.
+ * @param {string | null} [token=null] Optional bearer token.
+ * @returns {Promise<object | null>} Parsed JSON response or null on failure.
+ */
 async function getData(endpoint, token = null) {
   const headers = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;
@@ -35,6 +50,11 @@ async function getData(endpoint, token = null) {
   return data;
 }
 
+/**
+ * Populate the backend with sample users, catalog data, and an order flow.
+ *
+ * @returns {Promise<void>} Resolves when the scripted test flow completes.
+ */
 async function runTests() {
   console.log("=== Starting API Tests and Test Data Insertion ===");
 
@@ -141,7 +161,7 @@ async function runTests() {
   if (!addressId) return console.error("Failed to create Address");
 
   console.log("Adding Product to Cart as Buyer...");
-  const cartRes = await postData(
+  await postData(
     "/cart/items",
     {
       product_id: productId,

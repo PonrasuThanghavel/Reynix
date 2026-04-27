@@ -37,6 +37,8 @@ module.exports = [
       "jsdoc/require-description": "warn",
       "jsdoc/require-param-description": "warn",
       "jsdoc/require-returns-description": "warn",
+      "jsdoc/tag-lines": "off",
+      "jsdoc/no-defaults": "off",
     },
   },
   prettierConfig,
