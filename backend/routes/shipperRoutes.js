@@ -11,6 +11,7 @@ const {
 
 router.use(authenticate, authorize("shipper"));
 
+router.get("/available-shipments", shipperController.getAvailableShipments);
 router.get("/shipments", shipperController.getShipments);
 router.get("/shipments/:id", shipmentIdValidator, validateRequest(["params"]), shipperController.getShipmentById);
 router.put(

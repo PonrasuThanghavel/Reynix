@@ -83,4 +83,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = { sequelize, connectDB, ensureDatabaseExists };
+module.exports = { sequelize, connectDB };

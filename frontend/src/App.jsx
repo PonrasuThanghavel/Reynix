@@ -13,6 +13,7 @@ import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 import Orders from "./pages/Orders/Orders";
 import SellerDashboard from "./pages/SellerDashboard/SellerDashboard";
+import ShipperDashboard from "./pages/ShipperDashboard/ShipperDashboard";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Profile from "./pages/Profile/Profile";
@@ -59,6 +60,7 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/seller/dashboard" element={<SellerDashboard />} />
+                <Route path="/shipper/dashboard" element={<ShipperDashboard />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/api-catalog" element={<ApiCatalog />} />
                 <Route path="/wishlist" element={<Wishlist />} />

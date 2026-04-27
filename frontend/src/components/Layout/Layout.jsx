@@ -11,6 +11,7 @@ import {
   HiOutlineSquares2X2,
   HiOutlineBuildingStorefront,
   HiOutlineClipboardDocumentList,
+  HiOutlineTruck,
 } from "react-icons/hi2";
 import { RiShoppingBag3Line } from "react-icons/ri";
 import "./Layout.css";
@@ -95,6 +96,12 @@ function Layout() {
                     {user.role === "seller" && (
                       <Link to="/seller/dashboard" onClick={() => setDropdownOpen(false)}>
                         <HiOutlineBuildingStorefront /> Seller Dashboard
+                      </Link>
+                    )}
+
+                    {user.role === "shipper" && (
+                      <Link to="/shipper/dashboard" onClick={() => setDropdownOpen(false)}>
+                        <HiOutlineTruck /> Shipper Dashboard
                       </Link>
                     )}
 

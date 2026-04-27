@@ -74,6 +74,24 @@ const getAssignedShipments = async (shipperId) =>
     order: [["assigned_at", "DESC"]],
   });
 
+const getAvailablePackedShipments = async () =>
+  Shipment.findAll({
+    where: { shipper_id: null, status: "pending" },
+    include: [
+      {
+        model: SellerOrder,
+        as: "sellerOrder",
+        where: { status: "packed" },
+        include: [
+          { model: Order, as: "order", include: [{ model: UserAddress, as: "shippingAddress" }] },
+          { model: OrderItem, as: "items" },
+          { model: User, as: "seller", attributes: ["id", "full_name", "email"] },
+        ],
+      },
+    ],
+    order: [["created_at", "DESC"]],
+  });
+
 const getShipmentForShipper = async (shipperId, shipmentId) => {
   const shipment = await Shipment.findOne({
     where: { id: shipmentId, shipper_id: shipperId },
@@ -186,6 +204,7 @@ module.exports = {
   getShipmentByOrder,
   adminUpdateShipment,
   getAssignedShipments,
+  getAvailablePackedShipments,
   getShipmentForShipper,
   updateShipmentStatus,
   confirmShipmentDelivery,

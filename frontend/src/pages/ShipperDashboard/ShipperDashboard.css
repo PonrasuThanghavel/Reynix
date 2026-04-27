@@ -1,0 +1,229 @@
+.shipper-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.shipper-header {
+  margin-bottom: 2rem;
+}
+
+.shipper-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.shipper-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.shipper-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.shipper-stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.shipper-stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.shipper-stat-icon.amber {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.shipper-stat-icon.blue {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+
+.shipper-stat-icon.green {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.shipper-stat-icon.purple {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+}
+
+.shipper-stat-info h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.shipper-stat-info p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.shipper-section {
+  margin-bottom: 2rem;
+}
+
+.shipper-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.shipper-section-head h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.shipper-section-head span {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.shipper-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.shipper-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.shipper-card-top,
+.shipper-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.shipper-card-id {
+  font-weight: 700;
+  margin-right: 0.6rem;
+}
+
+.shipper-card-status {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.shipper-card-status.pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.shipper-card-status.dispatched,
+.shipper-card-status.assigned {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+}
+
+.shipper-card-status.in_transit,
+.shipper-card-status.out_for_delivery {
+  background: rgba(168, 85, 247, 0.12);
+  color: #c084fc;
+}
+
+.shipper-card-status.delivered {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+}
+
+.shipper-card-date,
+.shipper-card-footer,
+.shipper-meta {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+}
+
+.shipper-meta {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.shipper-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.shipper-item-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.shipper-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+}
+
+.shipper-item strong {
+  color: var(--text-primary);
+}
+
+.shipper-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 3rem 2rem;
+  border: 1px dashed var(--border-subtle);
+  border-radius: 14px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.shipper-empty svg {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 720px) {
+  .shipper-dashboard {
+    padding: 1rem;
+  }
+
+  .shipper-section-head,
+  .shipper-card-top,
+  .shipper-card-footer {
+    align-items: flex-start;
+  }
+}

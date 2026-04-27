@@ -2,13 +2,15 @@ import { startTransition, useDeferredValue, useMemo, useState } from "react";
 import { apiCatalog, groupOrder } from "../../apiCatalog";
 import "./ApiCatalog.css";
 
+const DEFAULT_API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+
 /**
  * Developer-facing API workbench for exercising backend endpoints manually.
  *
  * @returns {JSX.Element} The API catalog page.
  */
 function ApiCatalog() {
-  const [baseUrl, setBaseUrl] = useState("http://localhost:5000/api");
+  const [baseUrl, setBaseUrl] = useState(DEFAULT_API_BASE_URL);
   const [token, setToken] = useState(() => localStorage.getItem("token") ?? "");
   const [search, setSearch] = useState("");
   const [methodFilter, setMethodFilter] = useState("ALL");
