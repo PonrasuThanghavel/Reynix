@@ -72,11 +72,17 @@ function Register() {
     setApiError("");
     try {
       const { full_name, email, password, role } = form;
-      const user = await register({ full_name, email, password, role });
+      const user = await register({
+        full_name,
+        email,
+        phone_number: null,
+        password,
+        role,
+      });
       toast.success(`Welcome to Reynix, ${user.full_name}!`);
       navigate("/");
-    } catch {
-      const message = "Registration failed. Please try again.";
+    } catch (err) {
+      const message = err.response?.data?.message || "Registration failed. Please try again.";
       setApiError(message);
     } finally {
       setLoading(false);
