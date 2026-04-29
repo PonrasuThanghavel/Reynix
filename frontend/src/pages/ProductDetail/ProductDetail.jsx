@@ -16,6 +16,8 @@ import {
   HiOutlineBuildingStorefront,
   HiOutlineTag,
   HiOutlineSquare3Stack3D,
+  HiCheck,
+  HiArrowRight,
   HiStar,
   HiOutlineStar,
 } from "react-icons/hi2";
@@ -39,6 +41,7 @@ function ProductDetail() {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [addingToCart, setAddingToCart] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -139,10 +142,13 @@ function ProductDetail() {
       navigate("/login");
       return;
     }
+    if (addedToCart) return;
     setAddingToCart(true);
     try {
       await addItem(product.id, selectedVariant?.id || null, quantity);
       toast.success(`Added ${quantity}x "${product.name}" to cart`);
+      setAddedToCart(true);
+      setTimeout(() => setAddedToCart(false), 8000);
     } catch {
       toast.error("Failed to add item to cart");
     } finally {
@@ -280,15 +286,23 @@ function ProductDetail() {
 
           {/* Actions */}
           <div className="product-actions">
-            <button
-              className="product-add-cart-btn"
-              disabled={totalStock <= 0 || addingToCart}
-              onClick={handleAddToCart}
-              id="add-to-cart-btn"
-            >
-              <HiOutlineShoppingCart />
-              {totalStock <= 0 ? "Out of Stock" : addingToCart ? "Adding..." : "Add to Cart"}
-            </button>
+            {addedToCart ? (
+              <button className="product-go-cart-btn" onClick={() => navigate("/cart")} id="go-to-cart-btn">
+                <HiCheck />
+                Added — Go to Cart
+                <HiArrowRight className="go-arrow" />
+              </button>
+            ) : (
+              <button
+                className="product-add-cart-btn"
+                disabled={totalStock <= 0 || addingToCart}
+                onClick={handleAddToCart}
+                id="add-to-cart-btn"
+              >
+                <HiOutlineShoppingCart />
+                {totalStock <= 0 ? "Out of Stock" : addingToCart ? "Adding..." : "Add to Cart"}
+              </button>
+            )}
             <button
               className="product-wishlist-btn"
               onClick={() => toggleWishlist(product)}

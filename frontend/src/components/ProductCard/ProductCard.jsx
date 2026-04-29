@@ -1,7 +1,19 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HiOutlineHeart, HiHeart, HiOutlineShoppingCart, HiStar, HiOutlineStar } from "react-icons/hi2";
+import {
+  HiOutlineHeart,
+  HiHeart,
+  HiOutlineShoppingCart,
+  HiStar,
+  HiOutlineStar,
+  HiCheck,
+  HiArrowRight,
+} from "react-icons/hi2";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { useWishlist } from "../../context/WishlistContext";
+import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 import "./ProductCard.css";
 
 /**
@@ -12,6 +24,10 @@ import "./ProductCard.css";
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { addItem } = useCart();
+  const { user } = useAuth();
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [adding, setAdding] = useState(false);
 
   const sellingPrice = Number.parseFloat(product.selling_price) || 0;
   const basePrice = Number.parseFloat(product.base_price) || 0;
@@ -36,6 +52,33 @@ function ProductCard({ product }) {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
+  };
+
+  const handleAddToCart = async (e) => {
+    e.stopPropagation();
+    if (!user) {
+      toast.error("Please log in to add items to cart");
+      navigate("/login");
+      return;
+    }
+    if (adding || addedToCart) return;
+    setAdding(true);
+    try {
+      await addItem(product.id);
+      setAddedToCart(true);
+      toast.success(`${product.name} added to cart!`);
+      // Reset after 5 seconds
+      setTimeout(() => setAddedToCart(false), 5000);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to add to cart");
+    } finally {
+      setAdding(false);
+    }
+  };
+
+  const handleGoToCart = (e) => {
+    e.stopPropagation();
+    navigate("/cart");
   };
 
   return (
@@ -89,16 +132,16 @@ function ProductCard({ product }) {
             {basePrice > sellingPrice && <span className="product-card-base-price">{formatPrice(basePrice)}</span>}
           </div>
 
-          <button
-            className="product-card-add-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              // Cart logic will come later
-            }}
-            title="Add to cart"
-          >
-            <HiOutlineShoppingCart />
-          </button>
+          {addedToCart ? (
+            <button className="product-card-added-btn" onClick={handleGoToCart} title="Go to cart">
+              <HiCheck />
+              <HiArrowRight className="go-arrow" />
+            </button>
+          ) : (
+            <button className="product-card-add-btn" onClick={handleAddToCart} title="Add to cart" disabled={adding}>
+              {adding ? <span className="card-btn-spinner" /> : <HiOutlineShoppingCart />}
+            </button>
+          )}
         </div>
       </div>
     </div>
